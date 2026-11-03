@@ -77,7 +77,7 @@
             box-shadow: 0 5px 0 0 #000, 0 8px 15px rgba(0,0,0,0.5);
         }
 
-        /* Unity WebGL Container Custom Styles */
+        /* Unity WebGL Custom Container */
         #unity-container { width: 100%; height: 600px; position: relative; }
         #unity-canvas { width: 100%; height: 100%; background: #231F20; }
         #unity-loading-container { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #080B10; z-index: 10; }
@@ -139,7 +139,7 @@
                         <span class="text-tricolor-neon">BOLIVIA</span>
                     </h1>
 
-                    <p class="text-neon-yellow font-bold text-lg">Las calles están bloqueadas. La elección no espera.</p>
+                    <p class="text-neon-yellow font-bold text-xl">Las calles están bloqueadas. La elección no espera.</p>
 
                     <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light max-w-2xl mx-auto lg:mx-0">
                         El Presi corre por las calles de La Paz en plena jornada de protestas: llantas en llamas, carteles, petardos y gas lacrimógeno se cruzan en su camino. Cada segundo que resiste suma votos; llegar a <strong>500 votos</strong> antes de perder todas las vidas es la única forma de ganar.
@@ -170,11 +170,10 @@
                     </div>
                 </div>
 
-                <!-- Right Visual Image -->
+                <!-- IMAGEN 1: portada.jpg -->
                 <div class="lg:col-span-5 relative">
                     <div class="cyber-card p-3 rounded-3xl border border-neon-yellow/30 neon-glow-yellow">
                         <div class="relative overflow-hidden rounded-2xl bg-neon-dark border border-neon-border">
-                            <!-- IMAGEN 1: portada.jpg -->
                             <img src="portada.jpg" alt="Mi Bolivia Gameplay Portada" class="w-full h-auto object-cover">
                         </div>
                     </div>
@@ -182,7 +181,7 @@
             </div>
         </section>
 
-        <!-- Section 1: Historia & Universo -->
+        <!-- Section 1: Historia -->
         <section id="historia" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/40">
             <div class="max-w-7xl mx-auto space-y-12">
                 <div class="space-y-2">
@@ -212,13 +211,12 @@
                     </div>
                 </div>
 
-                <!-- Imagen central de ciudad -->
+                <!-- IMAGEN 2: ciudad.jpg -->
                 <div class="cyber-card p-4 rounded-3xl border border-neon-yellow/30">
                     <div class="overflow-hidden rounded-2xl">
-                        <!-- IMAGEN 2: ciudad.jpg -->
-                        <img src="ciudad.jpg" alt="Ciudad de La Paz estilizada" class="w-full h-auto object-cover">
+                        <img src="ciudad.jpg" alt="La plaza y el cruce" class="w-full h-auto object-cover">
                     </div>
-                    <p class="text-center text-xs text-slate-400 mt-3">La plaza y el cruce: cada pocos tramos la calle se abre y se ven los carros, el teleférico y el tránsi-to.</p>
+                    <p class="text-center text-xs text-slate-400 mt-3">La plaza y el cruce: cada pocos tramos la calle se abre y se ven los carros, el teleférico y el tránsito.</p>
                 </div>
             </div>
         </section>
@@ -232,19 +230,19 @@
                 </div>
 
                 <div class="cyber-card p-8 sm:p-12 rounded-3xl border border-neon-border grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <!-- IMAGEN 3: rodrigo_render.jpg -->
                     <div class="lg:col-span-5 text-center space-y-4">
                         <div class="w-full max-w-sm mx-auto rounded-3xl overflow-hidden border border-neon-yellow/40 shadow-xl">
-                            <!-- IMAGEN 3: rodrigo_render.jpg -->
                             <img src="rodrigo_render.jpg" alt="El Presi - Personaje Principal" class="w-full h-auto object-cover">
                         </div>
                     </div>
                     <div class="lg:col-span-7 space-y-6">
                         <div>
-                            <span class="text-xs uppercase font-bold text-neon-yellow tracking-widest">Candidato presidencial y protagonista</span>
-                            <h3 class="font-heading text-3xl font-black text-white mt-1">"EL PRESI"</h3>
+                            <h3 class="font-heading text-3xl font-black text-white">"EL PRESI"</h3>
+                            <p class="text-xs text-slate-400 mt-1">Modelado por José Gabriel Arroyo Santos</p>
                         </div>
                         <p class="text-slate-300 font-light text-sm leading-relaxed">
-                            Es el único personaje controlable; se mantiene en el centro de la pantalla mientras la ciudad avanza hacia él, al estilo de los runners clásicos de vista lateral.
+                            <strong>Rol:</strong> candidato presidencial y protagonista. Es el único personaje controlable; se mantiene en el centro de la pantalla mientras la ciudad avanza hacia él, al estilo de los runners clásicos de vista lateral.
                         </p>
                         <p class="text-slate-300 font-light text-sm leading-relaxed">
                             <strong>Rasgos estéticos:</strong> modelo 3D animado de estilo low-poly, con traje azul marino, camisa blanca y la banda presidencial tricolor (rojo, amarillo y verde) cruzada al pecho, que contrasta con el ambiente de protesta que lo rodea. Tiene animaciones propias para correr, saltar, deslizarse, recibir golpes por abajo y por arriba, caer derrotado y bailar al ganar.
@@ -253,7 +251,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                             <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
                                 <span class="text-xs font-bold text-neon-yellow block mb-1">Salto de campaña</span>
-                                <span class="text-xs text-slate-400">Impulso vertical (fuerza 7) con caída acelerada ×2.5 para rebotar rápido.</span>
+                                <span class="text-xs text-slate-400">Impulso vertical (fuerza 7) con caída acelerada ×2.5 para reaccionar rápido.</span>
                             </div>
                             <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
                                 <span class="text-xs font-bold text-neon-yellow block mb-1">Deslice</span>
@@ -261,7 +259,7 @@
                             </div>
                             <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
                                 <span class="text-xs font-bold text-neon-cyan block mb-1">Aguante político</span>
-                                <span class="text-xs text-slate-400">Tras un golpe parpadea y es invulnerable durante 1 s.</span>
+                                <span class="text-xs text-slate-400">Tras un golpe parpadea y es invulnerable durante 2 s.</span>
                             </div>
                             <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
                                 <span class="text-xs font-bold text-neon-green block mb-1">Baile de victoria</span>
@@ -300,8 +298,8 @@
                         <div class="w-12 h-12 bg-slate-900 border border-neon-cyan/40 rounded-xl flex items-center justify-center text-neon-cyan text-xl font-bold keycap">
                             <i class="fa-solid fa-hand-pointer"></i>
                         </div>
-                        <h4 class="font-bold text-white">Clic</h4>
-                        <p class="text-xs text-slate-400">Da foco al juego para que reciba el teclado.</p>
+                        <h4 class="font-bold text-white">Clic en el juego</h4>
+                        <p class="text-xs text-slate-400">Da foco al juego para que lea el teclado.</p>
                     </div>
                 </div>
 
@@ -310,32 +308,32 @@
                     <h3 class="font-heading text-2xl font-bold text-white">Obstáculos</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         <div class="cyber-card p-6 rounded-2xl space-y-2">
-                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded">SALTAR</span>
+                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded uppercase">SALTAR</span>
                             <h4 class="font-bold text-white text-lg">Llanta en llamas</h4>
                             <p class="text-xs text-slate-400">El bloqueo más común. Quema una vida si la tocas.</p>
                         </div>
                         <div class="cyber-card p-6 rounded-2xl space-y-2">
-                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded">SALTAR</span>
+                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded uppercase">SALTAR</span>
                             <h4 class="font-bold text-white text-lg">Basurero en fuego</h4>
                             <p class="text-xs text-slate-400">Obstáculo bajo y ancho en medio de la calle.</p>
                         </div>
                         <div class="cyber-card p-6 rounded-2xl space-y-2">
-                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded">SALTAR</span>
+                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded uppercase">SALTAR</span>
                             <h4 class="font-bold text-white text-lg">Barrera</h4>
                             <p class="text-xs text-slate-400">Cartel de protesta colocado bajo, de lado a lado.</p>
                         </div>
                         <div class="cyber-card p-6 rounded-2xl space-y-2">
-                            <span class="text-[10px] bg-yellow-500/20 text-yellow-400 font-bold px-2 py-0.5 rounded">AGACHARSE</span>
+                            <span class="text-[10px] bg-yellow-500/20 text-yellow-400 font-bold px-2 py-0.5 rounded uppercase">AGACHARSE</span>
                             <h4 class="font-bold text-white text-lg">Cartel alto</h4>
                             <p class="text-xs text-slate-400">La tela queda a la altura de la cabeza.</p>
                         </div>
                         <div class="cyber-card p-6 rounded-2xl space-y-2">
-                            <span class="text-[10px] bg-yellow-500/20 text-yellow-400 font-bold px-2 py-0.5 rounded">AGACHARSE</span>
+                            <span class="text-[10px] bg-yellow-500/20 text-yellow-400 font-bold px-2 py-0.5 rounded uppercase">AGACHARSE</span>
                             <h4 class="font-bold text-white text-lg">Petardo</h4>
                             <p class="text-xs text-slate-400">Llega volando más rápido que la calle; a veces explota.</p>
                         </div>
                         <div class="cyber-card p-6 rounded-2xl space-y-2">
-                            <span class="text-[10px] bg-cyan-500/20 text-cyan-400 font-bold px-2 py-0.5 rounded">MAREO</span>
+                            <span class="text-[10px] bg-cyan-500/20 text-cyan-400 font-bold px-2 py-0.5 rounded uppercase">MAREO</span>
                             <h4 class="font-bold text-white text-lg">Gas lacrimógeno</h4>
                             <p class="text-xs text-slate-400">No quita vida, pero la cámara gira 3 vueltas en 9 s y te desorienta.</p>
                         </div>
@@ -343,18 +341,21 @@
                 </div>
 
                 <!-- Reglas del sistema -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-4">
-                    <div class="bg-emerald-950/60 border border-emerald-500/40 p-6 rounded-2xl space-y-2">
-                        <h4 class="text-emerald-400 font-bold text-lg">Victoria</h4>
-                        <p class="text-xs text-slate-300 leading-relaxed">Los votos suben solos: 10 por segundo. Al llegar a <strong>500 votos</strong> el mundo se detiene y el Presi celebra.</p>
-                    </div>
-                    <div class="bg-rose-950/60 border border-rose-500/40 p-6 rounded-2xl space-y-2">
-                        <h4 class="text-rose-400 font-bold text-lg">Derrota</h4>
-                        <p class="text-xs text-slate-300 leading-relaxed">Cada choque con un obstáculo resta 1 vida. Con <strong>0 vidas</strong> el Presi cae y aparece el panel de derrota.</p>
-                    </div>
-                    <div class="cyber-card p-6 rounded-2xl space-y-2">
-                        <h4 class="text-white font-bold text-lg">Dificultad progresiva</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">La velocidad sube de 10 a 24 m/s. Los obstáculos aéreos aparecen a partir de 120 m y las combinaciones (varios seguidos, saltar + agacharse) desde 250 m.</p>
+                <div class="space-y-4 pt-4">
+                    <h3 class="font-heading text-2xl font-bold text-white">Reglas del sistema</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="bg-emerald-950/60 border border-emerald-500/40 p-6 rounded-2xl space-y-2">
+                            <h4 class="text-emerald-400 font-bold text-lg">Victoria</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">Los votos suben solos: 10 por segundo. Al llegar a <strong>500 votos</strong> el mundo se detiene y el Presi celebra.</p>
+                        </div>
+                        <div class="bg-rose-950/60 border border-rose-500/40 p-6 rounded-2xl space-y-2">
+                            <h4 class="text-rose-400 font-bold text-lg">Derrota</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">Cada choque con un obstáculo resta 1 vida. Con <strong>0 vidas</strong> el Presi cae y aparece el panel de derrota.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <h4 class="text-white font-bold text-lg">Dificultad progresiva</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">La velocidad sube de 10 a 24 m/s. Los obstáculos aéreos aparecen a partir de 120 m y las combinaciones (varios seguidos, saltar + agacharse) desde 250 m.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -378,11 +379,11 @@
                         <div class="text-xs text-slate-400 font-bold uppercase mt-1">Vidas iniciales</div>
                     </div>
                     <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-green">
-                        <div class="font-heading text-4xl font-black text-white">10/s</div>
+                        <div class="font-heading text-4xl font-black text-white">10/S</div>
                         <div class="text-xs text-slate-400 font-bold uppercase mt-1">Votos por segundo</div>
                     </div>
                     <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-cyan">
-                        <div class="font-heading text-4xl font-black text-white">~50 s</div>
+                        <div class="font-heading text-4xl font-black text-white">~50 S</div>
                         <div class="text-xs text-slate-400 font-bold uppercase mt-1">Tiempo mínimo para ganar</div>
                     </div>
                     <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-yellow">
@@ -450,7 +451,7 @@
             </div>
         </section>
 
-        <!-- Section 5: Jugar Ahora (WebGL Integrado) -->
+        <!-- Section 5: Jugar Ahora -->
         <section id="jugar" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/30">
             <div class="max-w-5xl mx-auto space-y-8">
                 <div class="space-y-2 text-center">
@@ -491,7 +492,7 @@
                         <ol class="text-xs text-slate-400 space-y-1 list-decimal pl-4">
                             <li>Pulsa Cargar el juego y espera a que termine la barra de carga.</li>
                             <li>Haz clic dentro del juego para que reciba el teclado.</li>
-                            <li>Usa <kbd class="bg-black px-1 rounded">↑</kbd> para saltar y <kbd class="bg-black px-1 rounded">↓</kbd> para agacharse.</li>
+                            <li>Usa <kbd class="bg-black px-1.5 py-0.5 rounded border border-slate-700">↑</kbd> para saltar y <kbd class="bg-black px-1.5 py-0.5 rounded border border-slate-700">↓</kbd> para agacharse.</li>
                             <li>Para volver a jugar, recarga la página (F5).</li>
                             <li>Si no carga, activa la aceleración por hardware del navegador.</li>
                         </ol>
