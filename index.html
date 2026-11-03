@@ -48,21 +48,12 @@
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Neon & Andean Glow Highlights */
-        .neon-border-gradient {
-            border-image: linear-gradient(135deg, #FF3B30, #FFCC00, #34C759) 1;
-        }
-
         .neon-glow-red {
             box-shadow: 0 0 30px -5px rgba(255, 59, 48, 0.4);
         }
 
         .neon-glow-yellow {
             box-shadow: 0 0 30px -5px rgba(255, 204, 0, 0.35);
-        }
-
-        .neon-glow-cyan {
-            box-shadow: 0 0 30px -5px rgba(0, 229, 255, 0.3);
         }
 
         .cyber-card {
@@ -82,10 +73,19 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Custom Keycap Buttons */
         .keycap {
             box-shadow: 0 5px 0 0 #000, 0 8px 15px rgba(0,0,0,0.5);
         }
+
+        /* Unity WebGL Container Custom Styles */
+        #unity-container { width: 100%; height: 600px; position: relative; }
+        #unity-canvas { width: 100%; height: 100%; background: #231F20; }
+        #unity-loading-container { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #080B10; z-index: 10; }
+        #unity-loading-bar { width: 300px; height: 10px; background: #161D27; border-radius: 5px; overflow: hidden; border: 1px solid #232D3F; }
+        #unity-progress-bar-full { width: 0%; height: 100%; background: linear-gradient(90deg, #FF3B30, #FFCC00, #34C759); transition: width 0.1s; }
+        #unity-warning { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 20; }
+        #unity-footer { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #0F141C; border-top: 1px solid #232D3F; }
+        #unity-fullscreen-button { width: 30px; height: 30px; background: url('TemplateData/fullscreen-button.png') no-repeat center; cursor: pointer; }
     </style>
 </head>
 <body class="antialiased bg-neon-dark text-slate-100 selection:bg-neon-yellow selection:text-black">
@@ -96,7 +96,6 @@
     <!-- Header Navigation -->
     <header class="fixed top-1 left-0 w-full z-40 bg-neon-dark/90 backdrop-blur-xl border-b border-neon-border/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand & Creator -->
             <a href="#" class="flex items-center space-x-3 group">
                 <div class="w-10 h-7 rounded-lg p-0.5 bg-gradient-to-br from-neon-red via-neon-yellow to-neon-green shadow-lg flex flex-col justify-between overflow-hidden">
                     <div class="h-1/3 bg-neon-red"></div>
@@ -111,39 +110,15 @@
                 </div>
             </a>
 
-            <!-- Desktop Nav Menu -->
             <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide">
-                <a href="#historia" class="hover:text-neon-yellow transition-colors flex items-center space-x-1.5">
-                    <i class="fa-solid fa-compass text-xs text-neon-red"></i><span>Universo</span>
-                </a>
-                <a href="#personaje" class="hover:text-neon-yellow transition-colors flex items-center space-x-1.5">
-                    <i class="fa-solid fa-user-shield text-xs text-neon-yellow"></i><span>El Candidato</span>
-                </a>
-                <a href="#mecanicas" class="hover:text-neon-yellow transition-colors flex items-center space-x-1.5">
-                    <i class="fa-solid fa-gamepad text-xs text-neon-green"></i><span>Mecánicas</span>
-                </a>
-                <a href="#datos" class="hover:text-neon-yellow transition-colors flex items-center space-x-1.5">
-                    <i class="fa-solid fa-chart-line text-xs text-neon-cyan"></i><span>Métricas</span>
-                </a>
-                <a href="#jugar" class="bg-gradient-to-r from-neon-red to-rose-600 hover:from-rose-600 hover:to-neon-red text-white font-extrabold px-6 py-2.5 rounded-xl shadow-lg neon-glow-red transition-all transform hover:scale-105">
+                <a href="#historia" class="hover:text-neon-yellow transition-colors">Universo</a>
+                <a href="#personaje" class="hover:text-neon-yellow transition-colors">El Candidato</a>
+                <a href="#mecanicas" class="hover:text-neon-yellow transition-colors">Mecánicas</a>
+                <a href="#datos" class="hover:text-neon-yellow transition-colors">Métricas</a>
+                <a href="#jugar" class="bg-gradient-to-r from-neon-red to-rose-600 hover:from-rose-600 hover:to-neon-red text-white font-extrabold px-6 py-2.5 rounded-xl shadow-lg neon-glow-red transition-all">
                     ¡A JUGAR!
                 </a>
             </nav>
-
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white p-2 text-2xl focus:outline-none">
-                <i class="fa-solid fa-bars-staggered"></i>
-            </button>
-        </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-neon-card border-b border-neon-border px-6 pt-4 pb-6 space-y-4">
-            <div class="text-xs text-slate-400 pb-2 border-b border-neon-border">Desarrollado por: <strong class="text-white">José Gabriel Arroyo Santos</strong></div>
-            <a href="#historia" class="block py-2 text-slate-200 hover:text-neon-yellow font-semibold">Universo del Juego</a>
-            <a href="#personaje" class="block py-2 text-slate-200 hover:text-neon-yellow font-semibold">El Candidato</a>
-            <a href="#mecanicas" class="block py-2 text-slate-200 hover:text-neon-yellow font-semibold">Mecánicas y Controles</a>
-            <a href="#datos" class="block py-2 text-slate-200 hover:text-neon-yellow font-semibold">Métricas y Datos</a>
-            <a href="#jugar" class="block w-full text-center bg-neon-red text-white font-black py-3 rounded-xl neon-glow-red">¡A JUGAR AHORA!</a>
         </div>
     </header>
 
@@ -151,63 +126,37 @@
     <main class="pt-24">
 
         <!-- Hero Section -->
-        <section class="relative min-h-[88vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 overflow-hidden">
-            <!-- Background Radial Glows -->
-            <div class="absolute top-20 left-10 w-96 h-96 bg-neon-red/15 rounded-full blur-[120px] pointer-events-none"></div>
-            <div class="absolute bottom-10 right-10 w-96 h-96 bg-neon-cyan/15 rounded-full blur-[120px] pointer-events-none"></div>
-
-            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-                <!-- Main Copy -->
+        <section class="relative min-h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-neon-surface border border-neon-yellow/40 text-neon-yellow text-xs font-bold uppercase tracking-widest shadow-md">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-neon-surface border border-neon-yellow/40 text-neon-yellow text-xs font-bold uppercase tracking-widest">
                         <i class="fa-solid fa-cube text-neon-cyan animate-spin"></i>
                         <span>UNITY WEBGL 3D • PROYECTO OFICIAL</span>
                     </div>
 
                     <h1 class="font-heading text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white">
                         LA CARRERA <br>
-                        <span class="text-tricolor-neon drop-shadow-[0_0_35px_rgba(255,204,0,0.4)]">PRESIDENCIAL</span>
+                        <span class="text-tricolor-neon">PRESIDENCIAL</span>
                     </h1>
 
                     <p class="text-lg sm:text-xl text-slate-300 leading-relaxed font-light max-w-2xl mx-auto lg:mx-0">
-                        Creado por <strong class="text-neon-yellow font-bold underline decoration-neon-red decoration-2">José Gabriel Arroyo Santos</strong>. Toma el control de <strong class="text-white">El Presi</strong> y esquiva el caos de protestas urbanas en las empinadas calles de La Paz. Cada segundo de carrera suma el respaldo popular necesario para conquistar el triunfo.
+                        Creado por <strong class="text-neon-yellow font-bold">José Gabriel Arroyo Santos</strong>. Toma el control de <strong>El Presi</strong> y esquiva el caos urbano en las empinadas calles de La Paz.
                     </p>
 
-                    <!-- Author Badge Card -->
-                    <div class="inline-flex items-center space-x-4 p-3 bg-neon-surface/80 rounded-2xl border border-neon-border text-left">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-yellow to-neon-red flex items-center justify-center text-neon-dark text-xl font-bold shadow-md">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <div>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-neon-cyan">Desarrollador Principal</span>
-                            <h4 class="text-white font-bold text-base">José Gabriel Arroyo Santos</h4>
-                        </div>
-                    </div>
-
-                    <!-- Call To Actions -->
                     <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
                         <a href="#jugar" class="bg-gradient-to-r from-neon-red via-rose-600 to-neon-yellow text-white font-black text-lg px-9 py-4 rounded-2xl shadow-xl neon-glow-red flex items-center space-x-3 transition-all transform hover:-translate-y-1">
                             <i class="fa-solid fa-gamepad text-2xl"></i>
-                            <span>INICIAR JUEGO</span>
-                        </a>
-                        <a href="#historia" class="bg-neon-card border border-neon-border hover:border-neon-cyan text-white font-bold px-8 py-4 rounded-2xl transition-all hover:bg-neon-surface flex items-center space-x-3">
-                            <i class="fa-solid fa-circle-info text-neon-yellow"></i>
-                            <span>Ver Historia y Lore</span>
+                            <span>IR AL JUEGO EN VIVO</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- Right Visual Player Card -->
                 <div class="lg:col-span-5 relative">
                     <div class="cyber-card p-3 rounded-3xl border border-neon-yellow/30 neon-glow-yellow">
-                        <div class="relative overflow-hidden rounded-2xl bg-neon-dark border border-neon-border group">
-                            <img src="https://placehold.co/600x420/0f141c/FFCC00?text=Mi+Bolivia+3D+WebGL" alt="Juego Mi Bolivia 3D" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-neon-dark via-transparent to-transparent opacity-90"></div>
-                            <div class="absolute bottom-5 left-5 right-5 space-y-1">
-                                <span class="text-xs font-bold uppercase tracking-widest text-neon-green"><i class="fa-solid fa-wifi mr-1"></i>En vivo en GitHub Pages</span>
-                                <h3 class="font-heading text-2xl font-bold text-white">Endless Runner paceño en 3D</h3>
-                                <p class="text-xs text-slate-300">Desarrollado y publicado por José Gabriel Arroyo Santos</p>
-                            </div>
+                        <div class="relative overflow-hidden rounded-2xl bg-neon-dark border border-neon-border text-center p-8">
+                            <i class="fa-solid fa-person-running text-8xl text-neon-yellow mb-4 animate-bounce"></i>
+                            <h3 class="font-heading text-2xl font-bold text-white">¡Listo para correr!</h3>
+                            <p class="text-xs text-slate-300 mt-2">Desarrollado por José Gabriel Arroyo Santos</p>
                         </div>
                     </div>
                 </div>
@@ -215,98 +164,56 @@
         </section>
 
         <!-- Section 1: Historia & Universo -->
-        <section id="historia" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/40 relative">
-            <div class="max-w-7xl mx-auto space-y-16">
-                <div class="text-center space-y-4">
+        <section id="historia" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/40">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="text-center space-y-3">
                     <span class="text-neon-red font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-red/10 rounded-full border border-neon-red/30">01 / LORE Y CONTEXTO</span>
-                    <h2 class="font-heading text-4xl sm:text-6xl font-extrabold text-white">EL UNIVERSO URBANO</h2>
-                    <p class="text-slate-400 max-w-2xl mx-auto font-light">Una visión satírica y frenética del ambiente electoral en las laderas andinas.</p>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">EL UNIVERSO URBANO</h2>
                 </div>
-
-                <!-- Asymmetric Timeline / Grid Layout -->
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                    <!-- Left Card: El Escenario -->
-                    <div class="lg:col-span-6 cyber-card p-8 sm:p-10 rounded-3xl border-l-4 border-l-neon-yellow flex flex-col justify-between">
-                        <div class="space-y-4">
-                            <div class="w-14 h-14 bg-neon-yellow/10 rounded-2xl flex items-center justify-center text-neon-yellow text-3xl border border-neon-yellow/30">
-                                <i class="fa-solid fa-mountain-city"></i>
-                            </div>
-                            <h3 class="font-heading text-3xl font-bold text-white">EL ESCENARIO URBANO</h3>
-                            <p class="text-slate-300 leading-relaxed font-light">
-                                La aventura toma lugar en una reconfiguración dinámica de la ciudad de La Paz: laderas escarpadas, fachadas tradicionales de ladrillo visto, plazas históricas y el icónico sistema de teleféricos surcando el cielo. Las vías están repletas de tránsito, trufis y minibuses que enmarcan la carrera infinita.
-                            </p>
-                        </div>
-                        <div class="pt-6 border-t border-neon-border/60 mt-6 flex items-center justify-between text-xs text-slate-400">
-                            <span>Ambientación Andina</span>
-                            <span class="text-neon-yellow font-semibold">Generación Dinámica de Tramo</span>
-                        </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="cyber-card p-8 rounded-3xl border-l-4 border-l-neon-yellow">
+                        <h3 class="font-heading text-2xl font-bold text-white mb-3">EL ESCENARIO</h3>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            Ambientado en una versión estilizada de La Paz, Bolivia: calles empinadas flanqueadas por ladrillo visto, plazas, teleféricos y el bullicio cotidiano de las marchas urbanas.
+                        </p>
                     </div>
-
-                    <!-- Right Card: La Misión Presidencial -->
-                    <div class="lg:col-span-6 cyber-card p-8 sm:p-10 rounded-3xl border-l-4 border-l-neon-red flex flex-col justify-between">
-                        <div class="space-y-4">
-                            <div class="w-14 h-14 bg-neon-red/10 rounded-2xl flex items-center justify-center text-neon-red text-3xl border border-neon-red/30">
-                                <i class="fa-solid fa-flag"></i>
-                            </div>
-                            <h3 class="font-heading text-3xl font-bold text-white">LA MISIÓN DEL CANDIDATO</h3>
-                            <p class="text-slate-300 leading-relaxed font-light">
-                                En pleno día de comicios, el caos social se apodera de las avenidas principales. Sin margen para retroceder, la única opción de <strong>El Presi</strong> es correr hacia adelante, saltar barricadas y esquivar los obstáculos de las marchas. Tu meta es acumular 500 votos de respaldo popular antes de agotar tus vidas.
-                            </p>
-                        </div>
-                        <div class="pt-6 border-t border-neon-border/60 mt-6 flex items-center justify-between text-xs text-slate-400">
-                            <span>Objetivo de Victoria</span>
-                            <span class="text-neon-red font-semibold">500 Votos Totales</span>
-                        </div>
+                    <div class="cyber-card p-8 rounded-3xl border-l-4 border-l-neon-red">
+                        <h3 class="font-heading text-2xl font-bold text-white mb-3">LA MISIÓN</h3>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            Avanza sin mirar atrás. Cada segundo en pie suma votos populares; tu meta es alcanzar 500 votos para lograr la victoria absoluta antes de perder las vidas.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: El Candidato Presidencial -->
-        <section id="personaje" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60">
-            <div class="max-w-7xl mx-auto space-y-16">
-                <div class="text-center space-y-4">
+        <!-- Section 2: El Candidato -->
+        <section id="personaje" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="text-center space-y-3">
                     <span class="text-neon-yellow font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-yellow/10 rounded-full border border-neon-yellow/30">02 / PROTAGONISTA</span>
-                    <h2 class="font-heading text-4xl sm:text-6xl font-extrabold text-white">EL CANDIDATO PRESIDENCIAL</h2>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">EL CANDIDATO PRESIDENCIAL</h2>
                 </div>
-
-                <div class="cyber-card rounded-3xl p-8 sm:p-12 border border-neon-border grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                    <!-- Character Visual Profile -->
-                    <div class="lg:col-span-5 text-center space-y-6">
-                        <div class="relative w-56 h-56 mx-auto rounded-3xl bg-gradient-to-tr from-neon-red via-neon-yellow to-neon-green p-1 shadow-2xl neon-glow-yellow">
-                            <div class="w-full h-full bg-neon-dark rounded-[22px] flex items-center justify-center overflow-hidden">
-                                <i class="fa-solid fa-user-tie text-9xl text-neon-yellow"></i>
+                <div class="cyber-card p-8 sm:p-12 rounded-3xl border border-neon-border grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5 text-center space-y-4">
+                        <div class="w-48 h-48 mx-auto rounded-3xl bg-gradient-to-tr from-neon-red via-neon-yellow to-neon-green p-1 shadow-xl">
+                            <div class="w-full h-full bg-neon-dark rounded-[22px] flex items-center justify-center">
+                                <i class="fa-solid fa-user-tie text-7xl text-neon-yellow"></i>
                             </div>
                         </div>
-                        <div>
-                            <span class="text-xs uppercase font-extrabold tracking-widest text-neon-cyan">Líder de Campaña</span>
-                            <h3 class="font-heading text-4xl font-black text-white">"EL PRESI"</h3>
-                            <p class="text-xs text-slate-400 mt-1">Diseñado por José Gabriel Arroyo Santos</p>
-                        </div>
+                        <h3 class="font-heading text-3xl font-black text-white">"EL PRESI"</h3>
+                        <p class="text-xs text-slate-400">Creado por José Gabriel Arroyo Santos</p>
                     </div>
-
-                    <!-- Character Skills & Specs -->
-                    <div class="lg:col-span-7 space-y-6">
-                        <p class="text-slate-300 text-lg font-light leading-relaxed">
-                            Representado mediante un modelo tridimensional estilo <em>Low-Poly</em> de alta agilidad. Luce traje ejecutivo azul marino, camisa blanca pulcra y la emblemática banda presidencial tricolor. Posee movilidad fluida para adaptarse a cualquier imprevisto del camino.
+                    <div class="lg:col-span-7 space-y-4">
+                        <p class="text-slate-300 font-light leading-relaxed">
+                            Modelo tridimensional de estilo Low-Poly con traje azul marino, camisa blanca y la banda presidencial tricolor. Diseñado para responder con agilidad ante cualquier obstáculo.
                         </p>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="bg-neon-dark/80 p-5 rounded-2xl border border-neon-border/80">
-                                <h4 class="text-neon-yellow font-bold text-sm mb-1"><i class="fa-solid fa-circle-arrow-up mr-2"></i>Salto de Campaña</h4>
-                                <p class="text-xs text-slate-400">Impulso vertical parabólico para superar llantas encendidas y contenedores.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
+                                <strong class="text-neon-yellow block mb-1">Salto de Campaña</strong> Impulso vertical para sortear barricadas terrestres.
                             </div>
-                            <div class="bg-neon-dark/80 p-5 rounded-2xl border border-neon-border/80">
-                                <h4 class="text-neon-yellow font-bold text-sm mb-1"><i class="fa-solid fa-angles-down mr-2"></i>Deslizamiento Veloz</h4>
-                                <p class="text-xs text-slate-400">Agachada instantánea para pasar por debajo de carteles y pancartas elevadas.</p>
-                            </div>
-                            <div class="bg-neon-dark/80 p-5 rounded-2xl border border-neon-border/80">
-                                <h4 class="text-neon-cyan font-bold text-sm mb-1"><i class="fa-solid fa-shield-cat mr-2"></i>Escudo Político</h4>
-                                <p class="text-xs text-slate-400">Tras sufrir un impacto, recibe 2 segundos de invulnerabilidad táctica.</p>
-                            </div>
-                            <div class="bg-neon-dark/80 p-5 rounded-2xl border border-neon-border/80">
-                                <h4 class="text-neon-green font-bold text-sm mb-1"><i class="fa-solid fa-trophy mr-2"></i>Festejo Democrático</h4>
-                                <p class="text-xs text-slate-400">Al llegar a 500 votos desata su baile victorioso en plena avenida principal.</p>
+                            <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
+                                <strong class="text-neon-yellow block mb-1">Deslizamiento</strong> Agachada rápida para esquivar carteles elevados.
                             </div>
                         </div>
                     </div>
@@ -315,258 +222,89 @@
         </section>
 
         <!-- Section 3: Mecánicas y Controles -->
-        <section id="mecanicas" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/40">
-            <div class="max-w-7xl mx-auto space-y-16">
-                <div class="text-center space-y-4">
+        <section id="mecanicas" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/40">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="text-center space-y-3">
                     <span class="text-neon-green font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-green/10 rounded-full border border-neon-green/30">03 / GAMEPLAY</span>
-                    <h2 class="font-heading text-4xl sm:text-6xl font-extrabold text-white">CONTROLES Y OBSTÁCULOS</h2>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">CONTROLES Y AMENAZAS</h2>
                 </div>
-
-                <!-- Physical Keycaps Display Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Jump Keycap -->
-                    <div class="cyber-card p-8 rounded-3xl text-center space-y-4 border-t-2 border-t-neon-green">
-                        <div class="w-20 h-20 mx-auto bg-slate-900 border-2 border-neon-green/60 rounded-2xl flex items-center justify-center text-neon-green text-3xl font-black keycap">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="cyber-card p-6 rounded-2xl space-y-3 border-t-2 border-t-neon-green">
+                        <div class="w-14 h-14 mx-auto bg-slate-900 border border-neon-green/50 rounded-xl flex items-center justify-center text-neon-green text-2xl font-bold keycap">
                             <i class="fa-solid fa-arrow-up"></i>
                         </div>
-                        <h3 class="font-heading text-2xl font-bold text-white">SALTAR</h3>
-                        <p class="text-xs text-slate-400">Presiona Flecha Arriba para elevarte sobre bloqueos a nivel de calle.</p>
+                        <h4 class="font-bold text-white text-lg">SALTAR</h4>
+                        <p class="text-xs text-slate-400">Flecha Arriba para llanas y basureros.</p>
                     </div>
-
-                    <!-- Slide Keycap -->
-                    <div class="cyber-card p-8 rounded-3xl text-center space-y-4 border-t-2 border-t-neon-yellow">
-                        <div class="w-20 h-20 mx-auto bg-slate-900 border-2 border-neon-yellow/60 rounded-2xl flex items-center justify-center text-neon-yellow text-3xl font-black keycap">
+                    <div class="cyber-card p-6 rounded-2xl space-y-3 border-t-2 border-t-neon-yellow">
+                        <div class="w-14 h-14 mx-auto bg-slate-900 border border-neon-yellow/50 rounded-xl flex items-center justify-center text-neon-yellow text-2xl font-bold keycap">
                             <i class="fa-solid fa-arrow-down"></i>
                         </div>
-                        <h3 class="font-heading text-2xl font-bold text-white">AGACHARSE</h3>
-                        <p class="text-xs text-slate-400">Presiona Flecha Abajo para deslizarte por debajo de pancartas aéreas.</p>
+                        <h4 class="font-bold text-white text-lg">AGACHARSE</h4>
+                        <p class="text-xs text-slate-400">Flecha Abajo para carteles y petardos.</p>
                     </div>
-
-                    <!-- Focus Action -->
-                    <div class="cyber-card p-8 rounded-3xl text-center space-y-4 border-t-2 border-t-neon-cyan">
-                        <div class="w-20 h-20 mx-auto bg-slate-900 border-2 border-neon-cyan/60 rounded-2xl flex items-center justify-center text-neon-cyan text-3xl font-black keycap">
+                    <div class="cyber-card p-6 rounded-2xl space-y-3 border-t-2 border-t-neon-cyan">
+                        <div class="w-14 h-14 mx-auto bg-slate-900 border border-neon-cyan/50 rounded-xl flex items-center justify-center text-neon-cyan text-2xl font-bold keycap">
                             <i class="fa-solid fa-hand-pointer"></i>
                         </div>
-                        <h3 class="font-heading text-2xl font-bold text-white">ACTIVAR FOCO</h3>
-                        <p class="text-xs text-slate-400">Haz clic dentro de la ventana de juego para habilitar la respuesta del teclado.</p>
-                    </div>
-                </div>
-
-                <!-- Obstacles Showcase -->
-                <div class="space-y-6">
-                    <h3 class="font-heading text-3xl font-bold text-white">AMENAZAS EN LA RUTA</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="bg-neon-dark p-6 rounded-2xl border border-neon-border space-y-2">
-                            <span class="bg-neon-red/20 text-neon-red text-[10px] font-black tracking-widest px-2.5 py-1 rounded-md uppercase">Requiere Saltar</span>
-                            <h4 class="text-white font-bold text-lg">Llanta en Llamas</h4>
-                            <p class="text-xs text-slate-400">Obstáculo inflamable común en barricadas. Resta 1 vida de inmediato.</p>
-                        </div>
-
-                        <div class="bg-neon-dark p-6 rounded-2xl border border-neon-border space-y-2">
-                            <span class="bg-neon-red/20 text-neon-red text-[10px] font-black tracking-widest px-2.5 py-1 rounded-md uppercase">Requiere Saltar</span>
-                            <h4 class="text-white font-bold text-lg">Basurero en Fuego</h4>
-                            <p class="text-xs text-slate-400">Contenedor metálico sobre la acera que exige buena precisión de salto.</p>
-                        </div>
-
-                        <div class="bg-neon-dark p-6 rounded-2xl border border-neon-border space-y-2">
-                            <span class="bg-neon-yellow/20 text-neon-yellow text-[10px] font-black tracking-widest px-2.5 py-1 rounded-md uppercase">Requiere Agacharse</span>
-                            <h4 class="text-white font-bold text-lg">Cartel de Marcha</h4>
-                            <p class="text-xs text-slate-400">Pancarta suspendida a media altura. Deslízate a tiempo para pasar libre.</p>
-                        </div>
-
-                        <div class="bg-neon-dark p-6 rounded-2xl border border-neon-border space-y-2">
-                            <span class="bg-neon-yellow/20 text-neon-yellow text-[10px] font-black tracking-widest px-2.5 py-1 rounded-md uppercase">Requiere Agacharse</span>
-                            <h4 class="text-white font-bold text-lg">Petardo Volador</h4>
-                            <p class="text-xs text-slate-400">Proyectil pirotécnico de trayectoria alta y gran velocidad de aproximación.</p>
-                        </div>
-
-                        <div class="bg-neon-dark p-6 rounded-2xl border border-neon-border space-y-2">
-                            <span class="bg-neon-cyan/20 text-neon-cyan text-[10px] font-black tracking-widest px-2.5 py-1 rounded-md uppercase">Efecto Mareo</span>
-                            <h4 class="text-white font-bold text-lg">Gas Lacrimógeno</h4>
-                            <p class="text-xs text-slate-400">Nube tóxica que desorienta al jugador haciendo rotar la cámara temporalmente.</p>
-                        </div>
-
-                        <div class="bg-neon-dark p-6 rounded-2xl border border-neon-border space-y-2">
-                            <span class="bg-neon-red/20 text-neon-red text-[10px] font-black tracking-widest px-2.5 py-1 rounded-md uppercase">Requiere Saltar</span>
-                            <h4 class="text-white font-bold text-lg">Caballete de Cerco</h4>
-                            <p class="text-xs text-slate-400">Valla rígida de madera que bloquea el ancho completo de la vía.</p>
-                        </div>
+                        <h4 class="font-bold text-white text-lg">ACTIVAR FOCO</h4>
+                        <p class="text-xs text-slate-400">Clic dentro del juego para recibir teclado.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 4: Métricas y Ficha Técnica -->
-        <section id="datos" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60">
-            <div class="max-w-7xl mx-auto space-y-16">
-                <div class="text-center space-y-4">
+        <!-- Section 4: Métricas -->
+        <section id="datos" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="text-center space-y-3">
                     <span class="text-neon-cyan font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-cyan/10 rounded-full border border-neon-cyan/30">04 / DASHBOARD</span>
-                    <h2 class="font-heading text-4xl sm:text-6xl font-extrabold text-white">MÉTRICAS Y FICHA TÉCNICA</h2>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">MÉTRICAS DEL PROYECTO</h2>
                 </div>
-
-                <!-- Numerical Cards -->
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="cyber-card p-6 rounded-3xl text-center border-b-4 border-b-neon-yellow">
-                        <div class="font-heading text-5xl font-black text-white">500</div>
-                        <div class="text-xs text-slate-400 font-bold uppercase tracking-wider mt-1">Votos para Victoria</div>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-yellow">
+                        <div class="font-heading text-4xl font-black text-white">500</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Votos Objetivo</div>
                     </div>
-
-                    <div class="cyber-card p-6 rounded-3xl text-center border-b-4 border-b-neon-red">
-                        <div class="font-heading text-5xl font-black text-white">30</div>
-                        <div class="text-xs text-slate-400 font-bold uppercase tracking-wider mt-1">Vidas Iniciales</div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-red">
+                        <div class="font-heading text-4xl font-black text-white">30</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Vidas Iniciales</div>
                     </div>
-
-                    <div class="cyber-card p-6 rounded-3xl text-center border-b-4 border-b-neon-green">
-                        <div class="font-heading text-5xl font-black text-white">10/s</div>
-                        <div class="text-xs text-slate-400 font-bold uppercase tracking-wider mt-1">Sumatoria de Votos</div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-green">
+                        <div class="font-heading text-4xl font-black text-white">10/s</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Votos por Segundo</div>
                     </div>
-
-                    <div class="cyber-card p-6 rounded-3xl text-center border-b-4 border-b-neon-cyan">
-                        <div class="font-heading text-5xl font-black text-white">~50s</div>
-                        <div class="text-xs text-slate-400 font-bold uppercase tracking-wider mt-1">Duración Media</div>
-                    </div>
-                </div>
-
-                <!-- Frequency Bars & Tech File -->
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <!-- Frequencies -->
-                    <div class="lg:col-span-7 cyber-card p-8 rounded-3xl space-y-6">
-                        <h3 class="font-heading text-2xl font-bold text-white">Probabilidad de Obstáculos</h3>
-                        
-                        <div class="space-y-4 text-xs font-semibold">
-                            <div>
-                                <div class="flex justify-between mb-1.5">
-                                    <span class="text-slate-300">Llantas incandescente</span>
-                                    <span class="text-neon-yellow">26%</span>
-                                </div>
-                                <div class="w-full bg-neon-dark h-2.5 rounded-full overflow-hidden p-0.5 border border-neon-border">
-                                    <div class="bg-gradient-to-r from-neon-red to-neon-yellow h-full rounded-full" style="width: 26%"></div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between mb-1.5">
-                                    <span class="text-slate-300">Basurero inflamable</span>
-                                    <span class="text-neon-yellow">18%</span>
-                                </div>
-                                <div class="w-full bg-neon-dark h-2.5 rounded-full overflow-hidden p-0.5 border border-neon-border">
-                                    <div class="bg-gradient-to-r from-neon-red to-neon-yellow h-full rounded-full" style="width: 18%"></div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between mb-1.5">
-                                    <span class="text-slate-300">Carteles elevados</span>
-                                    <span class="text-neon-yellow">16%</span>
-                                </div>
-                                <div class="w-full bg-neon-dark h-2.5 rounded-full overflow-hidden p-0.5 border border-neon-border">
-                                    <div class="bg-gradient-to-r from-neon-yellow to-neon-green h-full rounded-full" style="width: 16%"></div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between mb-1.5">
-                                    <span class="text-slate-300">Petardos y pirotecnia</span>
-                                    <span class="text-neon-yellow">14%</span>
-                                </div>
-                                <div class="w-full bg-neon-dark h-2.5 rounded-full overflow-hidden p-0.5 border border-neon-border">
-                                    <div class="bg-gradient-to-r from-neon-yellow to-neon-green h-full rounded-full" style="width: 14%"></div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="flex justify-between mb-1.5">
-                                    <span class="text-slate-300">Gas lacrimógeno de distracción</span>
-                                    <span class="text-neon-yellow">14%</span>
-                                </div>
-                                <div class="w-full bg-neon-dark h-2.5 rounded-full overflow-hidden p-0.5 border border-neon-border">
-                                    <div class="bg-gradient-to-r from-neon-green to-neon-cyan h-full rounded-full" style="width: 14%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Official Tech Sheet -->
-                    <div class="lg:col-span-5 cyber-card p-8 rounded-3xl space-y-4">
-                        <h3 class="font-heading text-2xl font-bold text-white">Ficha Técnica Oficial</h3>
-                        <div class="space-y-3 text-xs divide-y divide-neon-border">
-                            <div class="flex justify-between pt-2">
-                                <span class="text-slate-400">Autor / Estudiante:</span>
-                                <span class="text-neon-yellow font-bold">José Gabriel Arroyo Santos</span>
-                            </div>
-                            <div class="flex justify-between pt-2">
-                                <span class="text-slate-400">Motor de Renderizado:</span>
-                                <span class="text-white font-semibold">Unity 6 WebGL (URP)</span>
-                            </div>
-                            <div class="flex justify-between pt-2">
-                                <span class="text-slate-400">Tipo de Proyecto:</span>
-                                <span class="text-white font-semibold">Endless Runner 3D</span>
-                            </div>
-                            <div class="flex justify-between pt-2">
-                                <span class="text-slate-400">Modelado Tridimensional:</span>
-                                <span class="text-white font-semibold">Blender 3D</span>
-                            </div>
-                            <div class="flex justify-between pt-2">
-                                <span class="text-slate-400">Alojamiento Web:</span>
-                                <span class="text-neon-green font-semibold">GitHub Pages Direct</span>
-                            </div>
-                        </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-cyan">
+                        <div class="font-heading text-4xl font-black text-white">~50s</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Tiempo Mínimo</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 5: WebGL Game Launcher Area -->
-        <section id="jugar" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-dark">
-            <div class="max-w-6xl mx-auto space-y-8">
-                <div class="text-center space-y-4">
-                    <span class="text-neon-red font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-red/10 rounded-full border border-neon-red/30">05 / REPRODUCTOR</span>
-                    <h2 class="font-heading text-4xl sm:text-6xl font-extrabold text-white">¡A JUGAR AHORA!</h2>
-                    <p class="text-slate-400">Ejecuta el juego desarrollado por José Gabriel Arroyo Santos alojado en tu servidor.</p>
+        <!-- Section 5: Jugar Ahora (WebGL Integrado) -->
+        <section id="jugar" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/30">
+            <div class="max-w-5xl mx-auto space-y-8">
+                <div class="text-center space-y-3">
+                    <span class="text-neon-green font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-green/10 rounded-full border border-neon-green/30">05 / JUGAR AHORA</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">ZONA DE JUEGO EN VIVO</h2>
+                    <p class="text-slate-400 text-sm">Diseñado y publicado por José Gabriel Arroyo Santos</p>
                 </div>
 
-                <!-- WebGL Player Box -->
-                <div class="relative bg-black rounded-3xl border border-neon-border overflow-hidden shadow-2xl neon-glow-cyan aspect-video w-full max-w-4xl mx-auto">
-                    <!-- Pre-load Overlay -->
-                    <div id="game-overlay" class="absolute inset-0 bg-gradient-to-t from-neon-dark via-neon-card to-neon-dark flex flex-col items-center justify-center p-6 text-center z-20 space-y-6">
-                        <div class="w-24 h-24 bg-gradient-to-br from-neon-red to-neon-yellow rounded-full flex items-center justify-center shadow-2xl neon-glow-red animate-pulse">
-                            <i class="fa-solid fa-play text-white text-4xl ml-1"></i>
+                <!-- Unity WebGL Container -->
+                <div class="cyber-card p-4 rounded-3xl border border-neon-yellow/40 neon-glow-yellow">
+                    <div id="unity-container" class="unity-desktop rounded-2xl overflow-hidden relative">
+                        <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
+                        <div id="unity-loading-container">
+                            <div id="unity-loading-bar">
+                                <div id="unity-progress-bar-full"></div>
+                            </div>
                         </div>
-                        <div class="space-y-2">
-                            <h3 class="font-heading text-4xl font-black text-white">MI BOLIVIA 3D</h3>
-                            <p class="text-slate-400 text-xs max-w-md">Desarrollado por José Gabriel Arroyo Santos. Presiona el botón para cargar los recursos WebGL.</p>
-                        </div>
-                        <button id="load-game-btn" class="bg-gradient-to-r from-neon-red to-rose-600 hover:from-rose-600 hover:to-neon-red text-white font-black text-lg px-9 py-4 rounded-2xl shadow-xl transition-all transform hover:scale-105">
-                            CARGAR JUEGO EN VIVO
-                        </button>
+                        <div id="unity-warning"></div>
                     </div>
-
-                    <!-- WebGL Iframe Target -->
-                    <iframe id="game-iframe" src="about:blank" data-src="https://itsmegabo11.github.io/RodrigoRun/" class="w-full h-full border-0 hidden" allowfullscreen></iframe>
-                </div>
-
-                <!-- Controls & Fullscreen Toolbar -->
-                <div class="flex flex-wrap items-center justify-between gap-4 max-w-4xl mx-auto bg-neon-card p-4 rounded-2xl border border-neon-border">
-                    <div class="text-xs text-slate-300 flex items-center space-x-2">
-                        <i class="fa-solid fa-keyboard text-neon-yellow text-sm"></i>
-                        <span>Usa <strong>Flecha Arriba</strong> (Saltar) y <strong>Flecha Abajo</strong> (Agacharse).</span>
-                    </div>
-                    <button id="fullscreen-btn" class="bg-neon-surface hover:bg-neon-border text-white text-xs font-bold px-5 py-2.5 rounded-xl border border-neon-border transition-all flex items-center space-x-2">
-                        <i class="fa-solid fa-expand text-neon-cyan"></i>
-                        <span>PANTALLA COMPLETA</span>
-                    </button>
-                </div>
-
-                <!-- Requirements & Credits -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto text-xs">
-                    <div class="cyber-card p-6 rounded-2xl space-y-2">
-                        <h4 class="font-bold text-white text-sm text-neon-yellow">Requisitos Mínimos</h4>
-                        <p class="text-slate-400">Navegador moderno con soporte WebGL 2.0 (Chrome, Edge, Firefox, Opera), aceleración por hardware activada en ajustes y 4 GB de memoria RAM.</p>
-                    </div>
-
-                    <div class="cyber-card p-6 rounded-2xl space-y-2">
-                        <h4 class="font-bold text-white text-sm text-neon-green">Créditos de Autoría</h4>
-                        <p class="text-slate-400">Juego creado, compilado e implementado por <strong class="text-white">José Gabriel Arroyo Santos</strong>. Todos los derechos del proyecto de desarrollo de videojuegos reservados.</p>
+                    <div id="unity-footer" class="mt-4 rounded-xl">
+                        <div id="unity-logo-title-footer" class="text-xs font-bold text-slate-300">Mi_Bolivia — Unity WebGL</div>
+                        <div id="unity-fullscreen-button" title="Pantalla completa"></div>
                     </div>
                 </div>
             </div>
@@ -575,32 +313,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-neon-border bg-neon-card py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            <div class="space-y-2">
-                <div class="flex items-center justify-center md:justify-start space-x-3">
-                    <div class="w-6 h-4 rounded flex flex-col overflow-hidden">
-                        <div class="h-1/3 bg-neon-red"></div>
-                        <div class="h-1/3 bg-neon-yellow"></div>
-                        <div class="h-1/3 bg-neon-green"></div>
-                    </div>
-                    <span class="font-heading text-2xl font-bold text-white tracking-wider">MI BOLIVIA 3D</span>
-                </div>
-                <p class="text-xs text-slate-400">Proyecto WebGL • Creado por <strong class="text-white">José Gabriel Arroyo Santos</strong></p>
-            </div>
-
-            <div class="text-xs text-slate-500">
-                &copy; 2026 José Gabriel Arroyo Santos. Todos los derechos reservados.
-            </div>
-
-            <a href="#" class="bg-neon-dark hover:bg-neon-surface text-slate-300 hover:text-white p-3.5 rounded-xl border border-neon-border transition-colors text-xs flex items-center space-x-2">
-                <span>Volver arriba</span>
-                <i class="fa-solid fa-arrow-up text-neon-yellow"></i>
-            </a>
-        </div>
+    <footer class="bg-neon-dark border-t border-neon-border py-8 text-center text-xs text-slate-500 space-y-2">
+        <p>Proyecto desarrollado por <strong class="text-slate-300">José Gabriel Arroyo Santos</strong> • Hecho con Unity WebGL.</p>
+        <p>© 2026 Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Interactive Client Scripts -->
+    <!-- Unity WebGL Script Loader -->
     <script>
       let canvas = document.querySelector("#unity-canvas");
 
