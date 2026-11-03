@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Bolivia 3D — La Carrera Presidencial | José Gabriel Arroyo Santos</title>
+    <title>Mi Bolivia — Endless Runner 3D | José Gabriel Arroyo Santos</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -104,19 +104,19 @@
                 </div>
                 <div>
                     <span class="font-heading text-2xl font-bold tracking-wider text-white group-hover:text-neon-yellow transition-colors">
-                        MI BOLIVIA <span class="text-neon-cyan text-sm">3D</span>
+                        MI BOLIVIA
                     </span>
                     <span class="block text-[10px] text-gray-400 font-medium tracking-tight">by José Gabriel Arroyo Santos</span>
                 </div>
             </a>
 
             <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide">
-                <a href="#historia" class="hover:text-neon-yellow transition-colors">Universo</a>
-                <a href="#personaje" class="hover:text-neon-yellow transition-colors">El Candidato</a>
+                <a href="#historia" class="hover:text-neon-yellow transition-colors">Historia</a>
+                <a href="#personaje" class="hover:text-neon-yellow transition-colors">Personaje</a>
                 <a href="#mecanicas" class="hover:text-neon-yellow transition-colors">Mecánicas</a>
-                <a href="#datos" class="hover:text-neon-yellow transition-colors">Métricas</a>
+                <a href="#datos" class="hover:text-neon-yellow transition-colors">Datos</a>
                 <a href="#jugar" class="bg-gradient-to-r from-neon-red to-rose-600 hover:from-rose-600 hover:to-neon-red text-white font-extrabold px-6 py-2.5 rounded-xl shadow-lg neon-glow-red transition-all">
-                    ¡A JUGAR!
+                    Jugar ahora
                 </a>
             </nav>
         </div>
@@ -131,32 +131,51 @@
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                     <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-neon-surface border border-neon-yellow/40 text-neon-yellow text-xs font-bold uppercase tracking-widest">
                         <i class="fa-solid fa-cube text-neon-cyan animate-spin"></i>
-                        <span>UNITY WEBGL 3D • PROYECTO OFICIAL</span>
+                        <span>ENDLESS RUNNER 3D • UNITY</span>
                     </div>
 
                     <h1 class="font-heading text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white">
-                        LA CARRERA <br>
-                        <span class="text-tricolor-neon">PRESIDENCIAL</span>
+                        MI <br>
+                        <span class="text-tricolor-neon">BOLIVIA</span>
                     </h1>
 
-                    <p class="text-lg sm:text-xl text-slate-300 leading-relaxed font-light max-w-2xl mx-auto lg:mx-0">
-                        Creado por <strong class="text-neon-yellow font-bold">José Gabriel Arroyo Santos</strong>. Toma el control de <strong>El Presi</strong> y esquiva el caos urbano en las empinadas calles de La Paz.
+                    <p class="text-neon-yellow font-bold text-lg">Las calles están bloqueadas. La elección no espera.</p>
+
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light max-w-2xl mx-auto lg:mx-0">
+                        El Presi corre por las calles de La Paz en plena jornada de protestas: llantas en llamas, carteles, petardos y gas lacrimógeno se cruzan en su camino. Cada segundo que resiste suma votos; llegar a <strong>500 votos</strong> antes de perder todas las vidas es la única forma de ganar.
                     </p>
 
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
-                        <a href="#jugar" class="bg-gradient-to-r from-neon-red via-rose-600 to-neon-yellow text-white font-black text-lg px-9 py-4 rounded-2xl shadow-xl neon-glow-red flex items-center space-x-3 transition-all transform hover:-translate-y-1">
-                            <i class="fa-solid fa-gamepad text-2xl"></i>
-                            <span>IR AL JUEGO EN VIVO</span>
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#jugar" class="bg-gradient-to-r from-neon-red via-rose-600 to-neon-yellow text-white font-black px-8 py-3.5 rounded-xl shadow-xl neon-glow-red flex items-center space-x-2 transition-all transform hover:-translate-y-1">
+                            <span>JUGAR AHORA</span>
                         </a>
+                        <a href="#historia" class="bg-neon-card border border-neon-border hover:border-neon-cyan text-white font-bold px-7 py-3.5 rounded-xl transition-all">
+                            Conocer la historia
+                        </a>
+                    </div>
+
+                    <div class="flex items-center justify-center lg:justify-start gap-6 pt-4">
+                        <div class="bg-neon-surface px-5 py-3 rounded-2xl border border-neon-border text-center">
+                            <span class="block font-heading text-2xl font-black text-white">500</span>
+                            <span class="text-[10px] text-slate-400 uppercase">votos para ganar</span>
+                        </div>
+                        <div class="bg-neon-surface px-5 py-3 rounded-2xl border border-neon-border text-center">
+                            <span class="block font-heading text-2xl font-black text-white">30</span>
+                            <span class="text-[10px] text-slate-400 uppercase">vidas iniciales</span>
+                        </div>
+                        <div class="bg-neon-surface px-5 py-3 rounded-2xl border border-neon-border text-center">
+                            <span class="block font-heading text-xl font-black text-white">↑ ↓</span>
+                            <span class="text-[10px] text-slate-400 uppercase">saltar - agacharse</span>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Right Visual Image -->
                 <div class="lg:col-span-5 relative">
                     <div class="cyber-card p-3 rounded-3xl border border-neon-yellow/30 neon-glow-yellow">
-                        <div class="relative overflow-hidden rounded-2xl bg-neon-dark border border-neon-border text-center p-8">
-                            <i class="fa-solid fa-person-running text-8xl text-neon-yellow mb-4 animate-bounce"></i>
-                            <h3 class="font-heading text-2xl font-bold text-white">¡Listo para correr!</h3>
-                            <p class="text-xs text-slate-300 mt-2">Desarrollado por José Gabriel Arroyo Santos</p>
+                        <div class="relative overflow-hidden rounded-2xl bg-neon-dark border border-neon-border">
+                            <!-- IMAGEN 1: portada.jpg -->
+                            <img src="portada.jpg" alt="Mi Bolivia Gameplay Portada" class="w-full h-auto object-cover">
                         </div>
                     </div>
                 </div>
@@ -166,54 +185,87 @@
         <!-- Section 1: Historia & Universo -->
         <section id="historia" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/40">
             <div class="max-w-7xl mx-auto space-y-12">
-                <div class="text-center space-y-3">
-                    <span class="text-neon-red font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-red/10 rounded-full border border-neon-red/30">01 / LORE Y CONTEXTO</span>
-                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">EL UNIVERSO URBANO</h2>
+                <div class="space-y-2">
+                    <span class="text-neon-red font-heading text-xs font-bold tracking-widest uppercase">01</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">HISTORIA</h2>
                 </div>
+
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="cyber-card p-8 rounded-3xl border-l-4 border-l-neon-yellow">
-                        <h3 class="font-heading text-2xl font-bold text-white mb-3">EL ESCENARIO</h3>
+                    <div class="cyber-card p-8 rounded-3xl space-y-3">
+                        <h3 class="text-neon-red font-bold text-lg">El mundo</h3>
                         <p class="text-slate-300 font-light text-sm leading-relaxed">
-                            Ambientado en una versión estilizada de La Paz, Bolivia: calles empinadas flanqueadas por ladrillo visto, plazas, teleféricos y el bullicio cotidiano de las marchas urbanas.
+                            La acción transcurre en una versión estilizada de La Paz, Bolivia: calles empinadas flanqueadas por fachadas de ladrillo y cemento, plazas, cruces con minibuses y trufis, y al fondo los cerros cubiertos de casas que atraviesa el teleférico. La ciudad no se detiene nunca: es un recorrido infinito que se recicla tramo a tramo.
+                        </p>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            Es día de elecciones y el país vive una jornada de conflicto social. Los bloqueos cortan las vías con llantas y basureros en llamas, los manifestantes levantan carteles de lado a lado de la calle, estallan petardos y la policía responde con gas lacrimógeno.
                         </p>
                     </div>
-                    <div class="cyber-card p-8 rounded-3xl border-l-4 border-l-neon-red">
-                        <h3 class="font-heading text-2xl font-bold text-white mb-3">LA MISIÓN</h3>
+
+                    <div class="cyber-card p-8 rounded-3xl space-y-3">
+                        <h3 class="text-neon-red font-bold text-lg">El conflicto</h3>
                         <p class="text-slate-300 font-light text-sm leading-relaxed">
-                            Avanza sin mirar atrás. Cada segundo en pie suma votos populares; tu meta es alcanzar 500 votos para lograr la victoria absoluta antes de perder las vidas.
+                            El Presi necesita llegar a la gente en medio del caos. No puede dar marcha atrás ni esquivar por los costados: solo le queda avanzar, saltando los bloqueos y agachándose ante lo que viene por el aire.
+                        </p>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            Cada segundo que se mantiene en pie es un mensaje a los votantes: sigue en carrera. Si junta 500 votos, la campaña triunfa y el Presi celebra bailando; si los golpes le quitan todas las vidas, la candidatura termina en plena calle. La historia plantea, con humor y sátira, la idea de que en Bolivia hacer campaña es una carrera de resistencia.
                         </p>
                     </div>
+                </div>
+
+                <!-- Imagen central de ciudad -->
+                <div class="cyber-card p-4 rounded-3xl border border-neon-yellow/30">
+                    <div class="overflow-hidden rounded-2xl">
+                        <!-- IMAGEN 2: ciudad.jpg -->
+                        <img src="ciudad.jpg" alt="Ciudad de La Paz estilizada" class="w-full h-auto object-cover">
+                    </div>
+                    <p class="text-center text-xs text-slate-400 mt-3">La plaza y el cruce: cada pocos tramos la calle se abre y se ven los carros, el teleférico y el tránsi-to.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: El Candidato -->
+        <!-- Section 2: Personaje Principal -->
         <section id="personaje" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60">
             <div class="max-w-7xl mx-auto space-y-12">
-                <div class="text-center space-y-3">
-                    <span class="text-neon-yellow font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-yellow/10 rounded-full border border-neon-yellow/30">02 / PROTAGONISTA</span>
-                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">EL CANDIDATO PRESIDENCIAL</h2>
+                <div class="space-y-2">
+                    <span class="text-neon-yellow font-heading text-xs font-bold tracking-widest uppercase">02</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">PERSONAJE PRINCIPAL</h2>
                 </div>
-                <div class="cyber-card p-8 sm:p-12 rounded-3xl border border-neon-border grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+
+                <div class="cyber-card p-8 sm:p-12 rounded-3xl border border-neon-border grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                     <div class="lg:col-span-5 text-center space-y-4">
-                        <div class="w-48 h-48 mx-auto rounded-3xl bg-gradient-to-tr from-neon-red via-neon-yellow to-neon-green p-1 shadow-xl">
-                            <div class="w-full h-full bg-neon-dark rounded-[22px] flex items-center justify-center">
-                                <i class="fa-solid fa-user-tie text-7xl text-neon-yellow"></i>
-                            </div>
+                        <div class="w-full max-w-sm mx-auto rounded-3xl overflow-hidden border border-neon-yellow/40 shadow-xl">
+                            <!-- IMAGEN 3: rodrigo_render.jpg -->
+                            <img src="rodrigo_render.jpg" alt="El Presi - Personaje Principal" class="w-full h-auto object-cover">
                         </div>
-                        <h3 class="font-heading text-3xl font-black text-white">"EL PRESI"</h3>
-                        <p class="text-xs text-slate-400">Creado por José Gabriel Arroyo Santos</p>
                     </div>
-                    <div class="lg:col-span-7 space-y-4">
-                        <p class="text-slate-300 font-light leading-relaxed">
-                            Modelo tridimensional de estilo Low-Poly con traje azul marino, camisa blanca y la banda presidencial tricolor. Diseñado para responder con agilidad ante cualquier obstáculo.
+                    <div class="lg:col-span-7 space-y-6">
+                        <div>
+                            <span class="text-xs uppercase font-bold text-neon-yellow tracking-widest">Candidato presidencial y protagonista</span>
+                            <h3 class="font-heading text-3xl font-black text-white mt-1">"EL PRESI"</h3>
+                        </div>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            Es el único personaje controlable; se mantiene en el centro de la pantalla mientras la ciudad avanza hacia él, al estilo de los runners clásicos de vista lateral.
                         </p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            <strong>Rasgos estéticos:</strong> modelo 3D animado de estilo low-poly, con traje azul marino, camisa blanca y la banda presidencial tricolor (rojo, amarillo y verde) cruzada al pecho, que contrasta con el ambiente de protesta que lo rodea. Tiene animaciones propias para correr, saltar, deslizarse, recibir golpes por abajo y por arriba, caer derrotado y bailar al ganar.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                             <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
-                                <strong class="text-neon-yellow block mb-1">Salto de Campaña</strong> Impulso vertical para sortear barricadas terrestres.
+                                <span class="text-xs font-bold text-neon-yellow block mb-1">Salto de campaña</span>
+                                <span class="text-xs text-slate-400">Impulso vertical (fuerza 7) con caída acelerada ×2.5 para rebotar rápido.</span>
                             </div>
                             <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
-                                <strong class="text-neon-yellow block mb-1">Deslizamiento</strong> Agachada rápida para esquivar carteles elevados.
+                                <span class="text-xs font-bold text-neon-yellow block mb-1">Deslice</span>
+                                <span class="text-xs text-slate-400">Se agacha 0.85 s; su altura se reduce a la mitad para pasar bajo carteles y petardos.</span>
+                            </div>
+                            <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
+                                <span class="text-xs font-bold text-neon-cyan block mb-1">Aguante político</span>
+                                <span class="text-xs text-slate-400">Tras un golpe parpadea y es invulnerable durante 1 s.</span>
+                            </div>
+                            <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
+                                <span class="text-xs font-bold text-neon-green block mb-1">Baile de victoria</span>
+                                <span class="text-xs text-slate-400">Al llegar a la meta de votos celebra en plena calle.</span>
                             </div>
                         </div>
                     </div>
@@ -224,59 +276,175 @@
         <!-- Section 3: Mecánicas y Controles -->
         <section id="mecanicas" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/40">
             <div class="max-w-7xl mx-auto space-y-12">
-                <div class="text-center space-y-3">
-                    <span class="text-neon-green font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-green/10 rounded-full border border-neon-green/30">03 / GAMEPLAY</span>
-                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">CONTROLES Y AMENAZAS</h2>
+                <div class="space-y-2">
+                    <span class="text-neon-green font-heading text-xs font-bold tracking-widest uppercase">03</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">MECÁNICAS Y CONTROLES</h2>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                    <div class="cyber-card p-6 rounded-2xl space-y-3 border-t-2 border-t-neon-green">
-                        <div class="w-14 h-14 mx-auto bg-slate-900 border border-neon-green/50 rounded-xl flex items-center justify-center text-neon-green text-2xl font-bold keycap">
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="cyber-card p-6 rounded-2xl space-y-3">
+                        <div class="w-12 h-12 bg-slate-900 border border-neon-green/40 rounded-xl flex items-center justify-center text-neon-green text-xl font-bold keycap">
                             <i class="fa-solid fa-arrow-up"></i>
                         </div>
-                        <h4 class="font-bold text-white text-lg">SALTAR</h4>
-                        <p class="text-xs text-slate-400">Flecha Arriba para llanas y basureros.</p>
+                        <h4 class="font-bold text-white">Flecha arriba</h4>
+                        <p class="text-xs text-slate-400">Saltar (solo desde el suelo).</p>
                     </div>
-                    <div class="cyber-card p-6 rounded-2xl space-y-3 border-t-2 border-t-neon-yellow">
-                        <div class="w-14 h-14 mx-auto bg-slate-900 border border-neon-yellow/50 rounded-xl flex items-center justify-center text-neon-yellow text-2xl font-bold keycap">
+                    <div class="cyber-card p-6 rounded-2xl space-y-3">
+                        <div class="w-12 h-12 bg-slate-900 border border-neon-yellow/40 rounded-xl flex items-center justify-center text-neon-yellow text-xl font-bold keycap">
                             <i class="fa-solid fa-arrow-down"></i>
                         </div>
-                        <h4 class="font-bold text-white text-lg">AGACHARSE</h4>
-                        <p class="text-xs text-slate-400">Flecha Abajo para carteles y petardos.</p>
+                        <h4 class="font-bold text-white">Flecha abajo</h4>
+                        <p class="text-xs text-slate-400">Agacharse / deslizarse 0.85 s.</p>
                     </div>
-                    <div class="cyber-card p-6 rounded-2xl space-y-3 border-t-2 border-t-neon-cyan">
-                        <div class="w-14 h-14 mx-auto bg-slate-900 border border-neon-cyan/50 rounded-xl flex items-center justify-center text-neon-cyan text-2xl font-bold keycap">
+                    <div class="cyber-card p-6 rounded-2xl space-y-3">
+                        <div class="w-12 h-12 bg-slate-900 border border-neon-cyan/40 rounded-xl flex items-center justify-center text-neon-cyan text-xl font-bold keycap">
                             <i class="fa-solid fa-hand-pointer"></i>
                         </div>
-                        <h4 class="font-bold text-white text-lg">ACTIVAR FOCO</h4>
-                        <p class="text-xs text-slate-400">Clic dentro del juego para recibir teclado.</p>
+                        <h4 class="font-bold text-white">Clic</h4>
+                        <p class="text-xs text-slate-400">Da foco al juego para que reciba el teclado.</p>
+                    </div>
+                </div>
+
+                <!-- Obstáculos Lista -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="font-heading text-2xl font-bold text-white">Obstáculos</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded">SALTAR</span>
+                            <h4 class="font-bold text-white text-lg">Llanta en llamas</h4>
+                            <p class="text-xs text-slate-400">El bloqueo más común. Quema una vida si la tocas.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded">SALTAR</span>
+                            <h4 class="font-bold text-white text-lg">Basurero en fuego</h4>
+                            <p class="text-xs text-slate-400">Obstáculo bajo y ancho en medio de la calle.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded">SALTAR</span>
+                            <h4 class="font-bold text-white text-lg">Barrera</h4>
+                            <p class="text-xs text-slate-400">Cartel de protesta colocado bajo, de lado a lado.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-yellow-500/20 text-yellow-400 font-bold px-2 py-0.5 rounded">AGACHARSE</span>
+                            <h4 class="font-bold text-white text-lg">Cartel alto</h4>
+                            <p class="text-xs text-slate-400">La tela queda a la altura de la cabeza.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-yellow-500/20 text-yellow-400 font-bold px-2 py-0.5 rounded">AGACHARSE</span>
+                            <h4 class="font-bold text-white text-lg">Petardo</h4>
+                            <p class="text-xs text-slate-400">Llega volando más rápido que la calle; a veces explota.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-cyan-500/20 text-cyan-400 font-bold px-2 py-0.5 rounded">MAREO</span>
+                            <h4 class="font-bold text-white text-lg">Gas lacrimógeno</h4>
+                            <p class="text-xs text-slate-400">No quita vida, pero la cámara gira 3 vueltas en 9 s y te desorienta.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reglas del sistema -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-4">
+                    <div class="bg-emerald-950/60 border border-emerald-500/40 p-6 rounded-2xl space-y-2">
+                        <h4 class="text-emerald-400 font-bold text-lg">Victoria</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">Los votos suben solos: 10 por segundo. Al llegar a <strong>500 votos</strong> el mundo se detiene y el Presi celebra.</p>
+                    </div>
+                    <div class="bg-rose-950/60 border border-rose-500/40 p-6 rounded-2xl space-y-2">
+                        <h4 class="text-rose-400 font-bold text-lg">Derrota</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">Cada choque con un obstáculo resta 1 vida. Con <strong>0 vidas</strong> el Presi cae y aparece el panel de derrota.</p>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl space-y-2">
+                        <h4 class="text-white font-bold text-lg">Dificultad progresiva</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">La velocidad sube de 10 a 24 m/s. Los obstáculos aéreos aparecen a partir de 120 m y las combinaciones (varios seguidos, saltar + agacharse) desde 250 m.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 4: Métricas -->
+        <!-- Section 4: Datos del Proyecto -->
         <section id="datos" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60">
             <div class="max-w-7xl mx-auto space-y-12">
-                <div class="text-center space-y-3">
-                    <span class="text-neon-cyan font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-cyan/10 rounded-full border border-neon-cyan/30">04 / DASHBOARD</span>
-                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">MÉTRICAS DEL PROYECTO</h2>
+                <div class="space-y-2">
+                    <span class="text-neon-cyan font-heading text-xs font-bold tracking-widest uppercase">04</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">DATOS DEL PROYECTO</h2>
                 </div>
+
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
                     <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-yellow">
                         <div class="font-heading text-4xl font-black text-white">500</div>
-                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Votos Objetivo</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Votos objetivo</div>
                     </div>
                     <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-red">
                         <div class="font-heading text-4xl font-black text-white">30</div>
-                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Vidas Iniciales</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Vidas iniciales</div>
                     </div>
                     <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-green">
                         <div class="font-heading text-4xl font-black text-white">10/s</div>
-                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Votos por Segundo</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Votos por segundo</div>
                     </div>
                     <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-cyan">
-                        <div class="font-heading text-4xl font-black text-white">~50s</div>
-                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Tiempo Mínimo</div>
+                        <div class="font-heading text-4xl font-black text-white">~50 s</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Tiempo mínimo para ganar</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-yellow">
+                        <div class="font-heading text-4xl font-black text-white">10→24</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Velocidad (m/s)</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-red">
+                        <div class="font-heading text-4xl font-black text-white">6</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Tipos de obstáculo</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-green">
+                        <div class="font-heading text-4xl font-black text-white">1</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Nivel infinito</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-cyan">
+                        <div class="font-heading text-4xl font-black text-white">2</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Teclas de control</div>
+                    </div>
+                </div>
+
+                <!-- Tablas inferiores -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
+                    <div class="cyber-card p-8 rounded-3xl space-y-4">
+                        <h3 class="font-heading text-xl font-bold text-white">¿Qué tan seguido sale cada obstáculo?</h3>
+                        <div class="space-y-3 text-xs font-semibold">
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Llanta en llamas</span><span class="text-neon-yellow">26%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 26%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Basurero en fuego</span><span class="text-neon-yellow">18%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 18%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Cartel alto</span><span class="text-neon-yellow">16%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 16%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Petardo</span><span class="text-neon-yellow">14%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 14%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Gas lacrimógeno</span><span class="text-neon-yellow">14%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 14%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Barrera</span><span class="text-neon-yellow">12%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 12%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cyber-card p-8 rounded-3xl space-y-4">
+                        <h3 class="font-heading text-xl font-bold text-white">Ficha técnica</h3>
+                        <ul class="space-y-3 text-xs text-slate-300 divide-y divide-neon-border">
+                            <li class="flex justify-between pt-2"><strong class="text-white">Motor</strong> <span>Unity 6 (6000.0) • URP</span></li>
+                            <li class="flex justify-between pt-2"><strong class="text-white">Género</strong> <span>Endless runner 3D, vista lateral</span></li>
+                            <li class="flex justify-between pt-2"><strong class="text-white">Plataforma</strong> <span>Navegador web (WebGL)</span></li>
+                            <li class="flex justify-between pt-2"><strong class="text-white">Modelado</strong> <span>Blender (calles, fachadas, cerros, teleférico, vehículos, obstáculos)</span></li>
+                            <li class="flex justify-between pt-2"><strong class="text-white">Mundo</strong> <span>Tramos de calle, plazas y cerros reciclados (pooling): no se crea ni destruye nada mientras se juega</span></li>
+                            <li class="flex justify-between pt-2"><strong class="text-white">Ambientación</strong> <span>Teleférico, minibuses, trufis y autos en movimiento</span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -285,10 +453,9 @@
         <!-- Section 5: Jugar Ahora (WebGL Integrado) -->
         <section id="jugar" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/30">
             <div class="max-w-5xl mx-auto space-y-8">
-                <div class="text-center space-y-3">
-                    <span class="text-neon-green font-heading text-sm font-bold tracking-widest uppercase px-3 py-1 bg-neon-green/10 rounded-full border border-neon-green/30">05 / JUGAR AHORA</span>
-                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">ZONA DE JUEGO EN VIVO</h2>
-                    <p class="text-slate-400 text-sm">Diseñado y publicado por José Gabriel Arroyo Santos</p>
+                <div class="space-y-2 text-center">
+                    <span class="text-neon-green font-heading text-xs font-bold tracking-widest uppercase">05</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">JUGAR AHORA</h2>
                 </div>
 
                 <!-- Unity WebGL Container -->
@@ -307,6 +474,29 @@
                         <div id="unity-fullscreen-button" title="Pantalla completa"></div>
                     </div>
                 </div>
+
+                <!-- Requisitos e Instrucciones -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <div class="cyber-card p-6 rounded-2xl space-y-2">
+                        <h4 class="font-bold text-white text-sm">Requisitos mínimos</h4>
+                        <ul class="text-xs text-slate-400 space-y-1 list-disc pl-4">
+                            <li>Computadora de escritorio o laptop con teclado.</li>
+                            <li>Navegador actualizado: Chrome, Edge, Firefox u Opera (WebGL 2.0).</li>
+                            <li>4 GB de RAM y gráficos integrados o superiores.</li>
+                            <li>Conexión a internet para la primera descarga del juego.</li>
+                        </ul>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl space-y-2">
+                        <h4 class="font-bold text-white text-sm">Instrucciones</h4>
+                        <ol class="text-xs text-slate-400 space-y-1 list-decimal pl-4">
+                            <li>Pulsa Cargar el juego y espera a que termine la barra de carga.</li>
+                            <li>Haz clic dentro del juego para que reciba el teclado.</li>
+                            <li>Usa <kbd class="bg-black px-1 rounded">↑</kbd> para saltar y <kbd class="bg-black px-1 rounded">↓</kbd> para agacharse.</li>
+                            <li>Para volver a jugar, recarga la página (F5).</li>
+                            <li>Si no carga, activa la aceleración por hardware del navegador.</li>
+                        </ol>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -314,8 +504,8 @@
 
     <!-- Footer -->
     <footer class="bg-neon-dark border-t border-neon-border py-8 text-center text-xs text-slate-500 space-y-2">
-        <p>Proyecto desarrollado por <strong class="text-slate-300">José Gabriel Arroyo Santos</strong> • Hecho con Unity WebGL.</p>
-        <p>© 2026 Todos los derechos reservados.</p>
+        <p>Proyecto de la asignatura Game Development • Unidad 3 • Hecho con Unity. Desarrollado por <strong class="text-slate-300">José Gabriel Arroyo Santos</strong>.</p>
+        <p><a href="#" class="text-neon-yellow hover:underline">Volver arriba ↑</a></p>
     </footer>
 
     <!-- Unity WebGL Script Loader -->
