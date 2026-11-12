@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RodrigoRun — Endless Runner 3D | José Gabriel Arroyo Santos</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Space Grotesk & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            red: '#FF3B30',
+                            yellow: '#FFCC00',
+                            green: '#34C759',
+                            dark: '#080B10',
+                            card: '#0F141C',
+                            surface: '#161D27',
+                            border: '#232D3F',
+                            cyan: '#00E5FF'
+                        }
+                    },
+                    fontFamily: {
+                        space: ['"Space Grotesk"', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #080B10;
+            color: #E2E8F0;
+        }
+        
+        .font-heading {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .neon-glow-red {
+            box-shadow: 0 0 30px -5px rgba(255, 59, 48, 0.4);
+        }
+
+        .neon-glow-yellow {
+            box-shadow: 0 0 30px -5px rgba(255, 204, 0, 0.35);
+        }
+
+        .cyber-card {
+            background: linear-gradient(165deg, rgba(22, 29, 39, 0.9) 0%, rgba(15, 20, 28, 0.95) 100%);
+            border: 1px solid rgba(255, 204, 0, 0.12);
+            backdrop-filter: blur(16px);
+        }
+
+        .cyber-card:hover {
+            border-color: rgba(0, 229, 255, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .text-tricolor-neon {
+            background: linear-gradient(90deg, #FF3B30 0%, #FFCC00 50%, #34C759 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .keycap {
+            box-shadow: 0 5px 0 0 #000, 0 8px 15px rgba(0,0,0,0.5);
+        }
+
+        /* Unity WebGL Custom Container */
+        #unity-container { width: 100%; height: 600px; position: relative; }
+        #unity-canvas { width: 100%; height: 100%; background: #231F20; }
+        #unity-loading-container { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #080B10; z-index: 10; }
+        #unity-loading-bar { width: 300px; height: 10px; background: #161D27; border-radius: 5px; overflow: hidden; border: 1px solid #232D3F; }
+        #unity-progress-bar-full { width: 0%; height: 100%; background: linear-gradient(90deg, #FF3B30, #FFCC00, #34C759); transition: width 0.1s; }
+        #unity-warning { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 20; }
+        #unity-footer { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #0F141C; border-top: 1px solid #232D3F; }
+        #unity-fullscreen-button { width: 30px; height: 30px; background: url('TemplateData/fullscreen-button.png') no-repeat center; cursor: pointer; }
+    </style>
+</head>
+<body class="antialiased bg-neon-dark text-slate-100 selection:bg-neon-yellow selection:text-black">
+
+    <!-- Top Neon Tricolor Stripe -->
+    <div class="h-1 w-full bg-gradient-to-r from-neon-red via-neon-yellow to-neon-green fixed top-0 z-50 shadow-[0_0_15px_rgba(255,204,0,0.8)]"></div>
+
+    <!-- Header Navigation -->
+    <header class="fixed top-1 left-0 w-full z-40 bg-neon-dark/90 backdrop-blur-xl border-b border-neon-border/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-7 rounded-lg p-0.5 bg-gradient-to-br from-neon-red via-neon-yellow to-neon-green shadow-lg flex flex-col justify-between overflow-hidden">
+                    <div class="h-1/3 bg-neon-red"></div>
+                    <div class="h-1/3 bg-neon-yellow"></div>
+                    <div class="h-1/3 bg-neon-green"></div>
+                </div>
+                <div>
+                    <span class="font-heading text-2xl font-bold tracking-wider text-white group-hover:text-neon-yellow transition-colors">
+                        RODRIGORUN
+                    </span>
+                    <span class="block text-[10px] text-gray-400 font-medium tracking-tight">by José Gabriel Arroyo Santos</span>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide">
+                <a href="#historia" class="hover:text-neon-yellow transition-colors">Historia</a>
+                <a href="#personaje" class="hover:text-neon-yellow transition-colors">Personaje</a>
+                <a href="#mecanicas" class="hover:text-neon-yellow transition-colors">Mecánicas</a>
+                <a href="#datos" class="hover:text-neon-yellow transition-colors">Datos</a>
+                <a href="#jugar" class="bg-gradient-to-r from-neon-red to-rose-600 hover:from-rose-600 hover:to-neon-red text-white font-extrabold px-6 py-2.5 rounded-xl shadow-lg neon-glow-red transition-all">
+                    Jugar ahora
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="pt-24">
+
+        <!-- Hero Section -->
+        <section class="relative min-h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-neon-surface border border-neon-yellow/40 text-neon-yellow text-xs font-bold uppercase tracking-widest">
+                        <i class="fa-solid fa-cube text-neon-cyan animate-spin"></i>
+                        <span>RODRIGORUN • UNITY WEBGL</span>
+                    </div>
+
+                    <h1 class="font-heading text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white">
+                        RODRIGO <br>
+                        <span class="text-tricolor-neon">RUN</span>
+                    </h1>
+
+                    <p class="text-neon-yellow font-bold text-xl">Las calles están bloqueadas. La elección no espera.</p>
+
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-light max-w-2xl mx-auto lg:mx-0">
+                        El Presi corre por las calles de La Paz en plena jornada de protestas: llantas en llamas, carteles, petardos y gas lacrimógeno se cruzan en su camino. Cada segundo que resiste suma votos; llegar a <strong>500 votos</strong> antes de perder todas las vidas es la única forma de ganar.
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#jugar" class="bg-gradient-to-r from-neon-red via-rose-600 to-neon-yellow text-white font-black px-8 py-3.5 rounded-xl shadow-xl neon-glow-red flex items-center space-x-2 transition-all transform hover:-translate-y-1">
+                            <span>JUGAR AHORA</span>
+                        </a>
+                        <a href="#historia" class="bg-neon-card border border-neon-border hover:border-neon-cyan text-white font-bold px-7 py-3.5 rounded-xl transition-all">
+                            Conocer la historia
+                        </a>
+                    </div>
+
+                    <div class="flex items-center justify-center lg:justify-start gap-6 pt-4">
+                        <div class="bg-neon-surface px-5 py-3 rounded-2xl border border-neon-border text-center">
+                            <span class="block font-heading text-2xl font-black text-white">500</span>
+                            <span class="text-[10px] text-slate-400 uppercase">votos para ganar</span>
+                        </div>
+                        <div class="bg-neon-surface px-5 py-3 rounded-2xl border border-neon-border text-center">
+                            <span class="block font-heading text-2xl font-black text-white">30</span>
+                            <span class="text-[10px] text-slate-400 uppercase">vidas iniciales</span>
+                        </div>
+                        <div class="bg-neon-surface px-5 py-3 rounded-2xl border border-neon-border text-center">
+                            <span class="block font-heading text-xl font-black text-white">↑ ↓</span>
+                            <span class="text-[10px] text-slate-400 uppercase">saltar - agacharse</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IMAGEN 1: portada.jpg -->
+                <div class="lg:col-span-5 relative">
+                    <div class="cyber-card p-3 rounded-3xl border border-neon-yellow/30 neon-glow-yellow">
+                        <div class="relative overflow-hidden rounded-2xl bg-neon-dark border border-neon-border">
+                            <img src="portada.jpg" alt="RodrigoRun Gameplay Portada" class="w-full h-auto object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Historia -->
+        <section id="historia" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/40">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="space-y-2">
+                    <span class="text-neon-red font-heading text-xs font-bold tracking-widest uppercase">01</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">HISTORIA</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="cyber-card p-8 rounded-3xl space-y-3">
+                        <h3 class="text-neon-red font-bold text-lg">El mundo</h3>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            La acción transcurre en una versión estilizada de La Paz, Bolivia: calles empinadas flanqueadas por fachadas de ladrillo y cemento, plazas, cruces con minibuses y trufis, y al fondo los cerros cubiertos de casas que atraviesa el teleférico. La ciudad no se detiene nunca: es un recorrido infinito que se recicla tramo a tramo.
+                        </p>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            Es día de elecciones y el país vive una jornada de conflicto social. Los bloqueos cortan las vías con llantas y basureros en llamas, los manifestantes levantan carteles de lado a lado de la calle, estallan petardos y la policía responde con gas lacrimógeno.
+                        </p>
+                    </div>
+
+                    <div class="cyber-card p-8 rounded-3xl space-y-3">
+                        <h3 class="text-neon-red font-bold text-lg">El conflicto</h3>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            El Presi necesita llegar a la gente en medio del caos. No puede dar marcha atrás ni esquivar por los costados: solo le queda avanzar, saltando los bloqueos y agachándose ante lo que viene por el aire.
+                        </p>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            Cada segundo que se mantiene en pie es un mensaje a los votantes: sigue en carrera. Si junta 500 votos, la campaña triunfa y el Presi celebra bailando; si los golpes le quitan todas las vidas, la candidatura termina en plena calle. La historia plantea, con humor y sátira, la idea de que en Bolivia hacer campaña es una carrera de resistencia.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- IMAGEN 2: ciudad.jpg -->
+                <div class="cyber-card p-4 rounded-3xl border border-neon-yellow/30">
+                    <div class="overflow-hidden rounded-2xl">
+                        <img src="ciudad.jpg" alt="La plaza y el cruce" class="w-full h-auto object-cover">
+                    </div>
+                    <p class="text-center text-xs text-slate-400 mt-3">La plaza y el cruce: cada pocos tramos la calle se abre y se ven los carros, el teleférico y el tránsito.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Personaje Principal -->
+        <section id="personaje" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="space-y-2">
+                    <span class="text-neon-yellow font-heading text-xs font-bold tracking-widest uppercase">02</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">PERSONAJE PRINCIPAL</h2>
+                </div>
+
+                <div class="cyber-card p-8 sm:p-12 rounded-3xl border border-neon-border grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <!-- IMAGEN 3: rodrigo_render.jpg -->
+                    <div class="lg:col-span-5 text-center space-y-4">
+                        <div class="w-full max-w-sm mx-auto rounded-3xl overflow-hidden border border-neon-yellow/40 shadow-xl">
+                            <img src="rodrigo_render.jpg" alt="El Presi - Personaje Principal" class="w-full h-auto object-cover">
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 space-y-6">
+                        <div>
+                            <h3 class="font-heading text-3xl font-black text-white">"EL PRESI"</h3>
+                            <p class="text-xs text-slate-400 mt-1">Modelado por José Gabriel Arroyo Santos</p>
+                        </div>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            <strong>Rol:</strong> candidato presidencial y protagonista. Es el único personaje controlable; se mantiene en el centro de la pantalla mientras la ciudad avanza hacia él, al estilo de los runners clásicos de vista lateral.
+                        </p>
+                        <p class="text-slate-300 font-light text-sm leading-relaxed">
+                            <strong>Rasgos estéticos:</strong> modelo 3D animado de estilo low-poly, con traje azul marino, camisa blanca y la banda presidencial tricolor (rojo, amarillo y verde) cruzada al pecho, que contrasta con el ambiente de protesta que lo rodea. Tiene animaciones propias para correr, saltar, deslizarse, recibir golpes por abajo y por arriba, caer derrotado y bailar al ganar.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
+                                <span class="text-xs font-bold text-neon-yellow block mb-1">Salto de campaña</span>
+                                <span class="text-xs text-slate-400">Impulso vertical (fuerza 7) con caída acelerada ×2.5 para reaccionar rápido.</span>
+                            </div>
+                            <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
+                                <span class="text-xs font-bold text-neon-yellow block mb-1">Deslice</span>
+                                <span class="text-xs text-slate-400">Se agacha 0.85 s; su altura se reduce a la mitad para pasar bajo carteles y petardos.</span>
+                            </div>
+                            <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
+                                <span class="text-xs font-bold text-neon-cyan block mb-1">Aguante político</span>
+                                <span class="text-xs text-slate-400">Tras un golpe parpadea y es invulnerable durante 2 s.</span>
+                            </div>
+                            <div class="bg-neon-dark p-4 rounded-xl border border-neon-border">
+                                <span class="text-xs font-bold text-neon-green block mb-1">Baile de victoria</span>
+                                <span class="text-xs text-slate-400">Al llegar a la meta de votos celebra en plena calle.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Mecánicas y Controles -->
+        <section id="mecanicas" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/40">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="space-y-2">
+                    <span class="text-neon-green font-heading text-xs font-bold tracking-widest uppercase">03</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">MECÁNICAS Y CONTROLES</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="cyber-card p-6 rounded-2xl space-y-3">
+                        <div class="w-12 h-12 bg-slate-900 border border-neon-green/40 rounded-xl flex items-center justify-center text-neon-green text-xl font-bold keycap">
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </div>
+                        <h4 class="font-bold text-white">Flecha arriba</h4>
+                        <p class="text-xs text-slate-400">Saltar (solo desde el suelo).</p>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl space-y-3">
+                        <div class="w-12 h-12 bg-slate-900 border border-neon-yellow/40 rounded-xl flex items-center justify-center text-neon-yellow text-xl font-bold keycap">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </div>
+                        <h4 class="font-bold text-white">Flecha abajo</h4>
+                        <p class="text-xs text-slate-400">Agacharse / deslizarse 0.85 s.</p>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl space-y-3">
+                        <div class="w-12 h-12 bg-slate-900 border border-neon-cyan/40 rounded-xl flex items-center justify-center text-neon-cyan text-xl font-bold keycap">
+                            <i class="fa-solid fa-hand-pointer"></i>
+                        </div>
+                        <h4 class="font-bold text-white">Clic en el juego</h4>
+                        <p class="text-xs text-slate-400">Da foco al juego para que lea el teclado.</p>
+                    </div>
+                </div>
+
+                <!-- Obstáculos Lista -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="font-heading text-2xl font-bold text-white">Obstáculos</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded uppercase">SALTAR</span>
+                            <h4 class="font-bold text-white text-lg">Llanta en llamas</h4>
+                            <p class="text-xs text-slate-400">El bloqueo más común. Quema una vida si la tocas.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded uppercase">SALTAR</span>
+                            <h4 class="font-bold text-white text-lg">Basurero en fuego</h4>
+                            <p class="text-xs text-slate-400">Obstáculo bajo y ancho en medio de la calle.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded uppercase">SALTAR</span>
+                            <h4 class="font-bold text-white text-lg">Barrera</h4>
+                            <p class="text-xs text-slate-400">Cartel de protesta colocado bajo, de lado a lado.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-yellow-500/20 text-yellow-400 font-bold px-2 py-0.5 rounded uppercase">AGACHARSE</span>
+                            <h4 class="font-bold text-white text-lg">Cartel alto</h4>
+                            <p class="text-xs text-slate-400">La tela queda a la altura de la cabeza.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-yellow-500/20 text-yellow-400 font-bold px-2 py-0.5 rounded uppercase">AGACHARSE</span>
+                            <h4 class="font-bold text-white text-lg">Petardo</h4>
+                            <p class="text-xs text-slate-400">Llega volando más rápido que la calle; a veces explota.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <span class="text-[10px] bg-cyan-500/20 text-cyan-400 font-bold px-2 py-0.5 rounded uppercase">MAREO</span>
+                            <h4 class="font-bold text-white text-lg">Gas lacrimógeno</h4>
+                            <p class="text-xs text-slate-400">No quita vida, pero la cámara gira 3 vueltas en 9 s y te desorienta.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reglas del sistema -->
+                <div class="space-y-4 pt-4">
+                    <h3 class="font-heading text-2xl font-bold text-white">Reglas del sistema</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="bg-emerald-950/60 border border-emerald-500/40 p-6 rounded-2xl space-y-2">
+                            <h4 class="text-emerald-400 font-bold text-lg">Victoria</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">Los votos suben solos: 10 por segundo. Al llegar a <strong>500 votos</strong> el mundo se detiene y el Presi celebra.</p>
+                        </div>
+                        <div class="bg-rose-950/60 border border-rose-500/40 p-6 rounded-2xl space-y-2">
+                            <h4 class="text-rose-400 font-bold text-lg">Derrota</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">Cada choque con un obstáculo resta 1 vida. Con <strong>0 vidas</strong> el Presi cae y aparece el panel de derrota.</p>
+                        </div>
+                        <div class="cyber-card p-6 rounded-2xl space-y-2">
+                            <h4 class="text-white font-bold text-lg">Dificultad progresiva</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">La velocidad sube de 10 a 24 m/s. Los obstáculos aéreos aparecen a partir de 120 m y las combinaciones (varios seguidos, saltar + agacharse) desde 250 m.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Datos del Proyecto -->
+        <section id="datos" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60">
+            <div class="max-w-7xl mx-auto space-y-12">
+                <div class="space-y-2">
+                    <span class="text-neon-cyan font-heading text-xs font-bold tracking-widest uppercase">04</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">DATOS DEL PROYECTO</h2>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-yellow">
+                        <div class="font-heading text-4xl font-black text-white">500</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Votos objetivo</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-red">
+                        <div class="font-heading text-4xl font-black text-white">30</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Vidas iniciales</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-green">
+                        <div class="font-heading text-4xl font-black text-white">10/S</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Votos por segundo</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-cyan">
+                        <div class="font-heading text-4xl font-black text-white">~50 S</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Tiempo mínimo para ganar</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-yellow">
+                        <div class="font-heading text-4xl font-black text-white">10→24</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Velocidad (m/s)</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-red">
+                        <div class="font-heading text-4xl font-black text-white">6</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Tipos de obstáculo</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-green">
+                        <div class="font-heading text-4xl font-black text-white">1</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Nivel infinito</div>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl border-b-2 border-b-neon-cyan">
+                        <div class="font-heading text-4xl font-black text-white">2</div>
+                        <div class="text-xs text-slate-400 font-bold uppercase mt-1">Teclas de control</div>
+                    </div>
+                </div>
+
+                <!-- Tablas inferiores -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
+                    <div class="cyber-card p-8 rounded-3xl space-y-4">
+                        <h3 class="font-heading text-xl font-bold text-white">¿Qué tan seguido sale cada obstáculo?</h3>
+                        <div class="space-y-3 text-xs font-semibold">
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Llanta en llamas</span><span class="text-neon-yellow">26%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 26%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Basurero en fuego</span><span class="text-neon-yellow">18%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 18%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Cartel alto</span><span class="text-neon-yellow">16%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 16%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Petardo</span><span class="text-neon-yellow">14%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 14%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Gas lacrimógeno</span><span class="text-neon-yellow">14%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 14%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1"><span class="text-slate-300">Barrera</span><span class="text-neon-yellow">12%</span></div>
+                                <div class="w-full bg-neon-dark h-2 rounded-full overflow-hidden border border-neon-border"><div class="bg-neon-yellow h-full" style="width: 12%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cyber-card p-8 rounded-3xl space-y-4">
+                        <h3 class="font-heading text-xl font-bold text-white">Ficha técnica</h3>
+                        <ul class="space-y-3 text-xs text-slate-300 divide-y divide-neon-border">
+                            <li class="flex justify-between pt-2"><strong class="text-white">Motor</strong> <span>Unity 6 (6000.0) • URP</span></li>
+                            <li class="flex justify-between pt-2"><strong class="text-white">Género</strong> <span>Endless runner 3D, vista lateral</span></li>
+                            <li class="flex justify-between pt-2"><strong class="text-white">Plataforma</strong> <span>Navegador web (WebGL)</span></li>
+                            <li class="flex justify-between pt-2"><strong class="text-white">Modelado</strong> <span>Blender (calles, fachadas, cerros, teleférico, vehículos, obstáculos)</span></li>
+                            <li class="flex justify-between pt-2"><strong class="text-white">Mundo</strong> <span>Tramos de calle, plazas y cerros reciclados (pooling): no se crea ni destruye nada mientras se juega</span></li>
+                            <li class="flex justify-between pt-2"><strong class="text-white">Ambientación</strong> <span>Teleférico, minibuses, trufis y autos en movimiento</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Jugar Ahora -->
+        <section id="jugar" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-neon-border/60 bg-neon-card/30">
+            <div class="max-w-5xl mx-auto space-y-8">
+                <div class="space-y-2 text-center">
+                    <span class="text-neon-green font-heading text-xs font-bold tracking-widest uppercase">05</span>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-extrabold text-white">JUGAR AHORA</h2>
+                </div>
+
+                <!-- Unity WebGL Container -->
+                <div class="cyber-card p-4 rounded-3xl border border-neon-yellow/40 neon-glow-yellow">
+                    <div id="unity-container" class="unity-desktop rounded-2xl overflow-hidden relative">
+                        <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
+                        <div id="unity-loading-container">
+                            <div id="unity-loading-bar">
+                                <div id="unity-progress-bar-full"></div>
+                            </div>
+                        </div>
+                        <div id="unity-warning"></div>
+                    </div>
+                    <div id="unity-footer" class="mt-4 rounded-xl">
+                        <div id="unity-logo-title-footer" class="text-xs font-bold text-slate-300">RodrigoRun — Unity WebGL</div>
+                        <div id="unity-fullscreen-button" title="Pantalla completa"></div>
+                    </div>
+                </div>
+
+                <!-- Requisitos e Instrucciones -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <div class="cyber-card p-6 rounded-2xl space-y-2">
+                        <h4 class="font-bold text-white text-sm">Requisitos mínimos</h4>
+                        <ul class="text-xs text-slate-400 space-y-1 list-disc pl-4">
+                            <li>Computadora de escritorio o laptop con teclado.</li>
+                            <li>Navegador actualizado: Chrome, Edge, Firefox u Opera (WebGL 2.0).</li>
+                            <li>4 GB de RAM y gráficos integrados o superiores.</li>
+                            <li>Conexión a internet para la primera descarga del juego.</li>
+                        </ul>
+                    </div>
+                    <div class="cyber-card p-6 rounded-2xl space-y-2">
+                        <h4 class="font-bold text-white text-sm">Instrucciones</h4>
+                        <ol class="text-xs text-slate-400 space-y-1 list-decimal pl-4">
+                            <li>Pulsa Cargar el juego y espera a que termine la barra de carga.</li>
+                            <li>Haz clic dentro del juego para que reciba el teclado.</li>
+                            <li>Usa <kbd class="bg-black px-1.5 py-0.5 rounded border border-slate-700">↑</kbd> para saltar y <kbd class="bg-black px-1.5 py-0.5 rounded border border-slate-700">↓</kbd> para agacharse.</li>
+                            <li>Para volver a jugar, recarga la página (F5).</li>
+                            <li>Si no carga, activa la aceleración por hardware del navegador.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-neon-dark border-t border-neon-border py-8 text-center text-xs text-slate-500 space-y-2">
+        <p>Proyecto de la asignatura Game Development • Unidad 3 • Hecho con Unity. Desarrollado por <strong class="text-slate-300">José Gabriel Arroyo Santos</strong>.</p>
+        <p><a href="#" class="text-neon-yellow hover:underline">Volver arriba ↑</a></p>
+    </footer>
+
+    <!-- Unity WebGL Script Loader -->
+    <script>
+      let canvas = document.querySelector("#unity-canvas");
+
+      function unityShowBanner(msg, type) {
+        var warningBanner = document.querySelector("#unity-warning");
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px; color: white; border-radius: 8px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px; color: black; border-radius: 8px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/web_game.loader.js";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/web_game.data",
+        frameworkUrl: buildUrl + "/web_game.framework.js",
+        codeUrl: buildUrl + "/web_game.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "RodrigoRun",
+        productVersion: "0.1.0",
+        showBanner: unityShowBanner,
+      };
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        const loadingContainer = document.querySelector("#unity-loading-container");
+        const progressBarFull = document.querySelector("#unity-progress-bar-full");
+
+        createUnityInstance(canvas, config, (progress) => {
+          if (progress < 1) {
+            loadingContainer.style.display = "flex";
+            progressBarFull.style.width = 100 * progress + "%";
+          } else {
+            loadingContainer.style.display = "none";
+          }
+        }).then((unityInstance) => {
+            document.querySelector("#unity-fullscreen-button").onclick = () => {
+              unityInstance.SetFullscreen(1);
+            };
+          }).catch((message) => {
+            alert(message);
+          });
+      };
+
+      document.body.appendChild(script);
+    </script>
+</body>
+</html>
