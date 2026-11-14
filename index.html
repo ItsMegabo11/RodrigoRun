@@ -3,142 +3,463 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Videojuegos — José Gabriel Arroyo Santos</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Portal Arcade WebGL | José Gabriel Arroyo Santos</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        neon: { red: '#FF3B30', yellow: '#FFCC00', green: '#34C759', dark: '#080B10', card: '#0F141C', surface: '#161D27', border: '#232D3F', cyan: '#00E5FF' }
+                        arcade: {
+                            dark: '#06090F',
+                            card: '#0D131F',
+                            surface: '#141D2E',
+                            border: '#1F2D47',
+                            red: '#FF3B30',
+                            yellow: '#FFCC00',
+                            green: '#34C759',
+                            cyan: '#00E5FF',
+                            purple: '#A855F7'
+                        }
                     },
-                    fontFamily: { space: ['"Space Grotesk"', 'sans-serif'], outfit: ['Outfit', 'sans-serif'] }
+                    fontFamily: {
+                        space: ['"Space Grotesk"', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif']
+                    }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Outfit', sans-serif; background-color: #080B10; color: #E2E8F0; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #06090F;
+            color: #F1F5F9;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 229, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 85% 35%, rgba(255, 204, 0, 0.05) 0%, transparent 45%),
+                radial-gradient(circle at 50% 80%, rgba(52, 199, 89, 0.05) 0%, transparent 50%);
+        }
         .font-heading { font-family: 'Space Grotesk', sans-serif; }
-        .cyber-card { background: linear-gradient(165deg, rgba(22, 29, 39, 0.9) 0%, rgba(15, 20, 28, 0.95) 100%); border: 1px solid rgba(255, 204, 0, 0.12); backdrop-filter: blur(16px); }
-        .text-tricolor-neon { background: linear-gradient(90deg, #FF3B30 0%, #FFCC00 50%, #34C759 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .game-container-box { width: 100%; height: 600px; position: relative; background: #231F20; display: flex; align-items: center; justify-content: center; }
-        .game-footer-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #0F141C; border-top: 1px solid #232D3F; }
+        
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(20, 29, 46, 0.85) 0%, rgba(13, 19, 31, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+        }
+        
+        .glass-panel:hover {
+            border-color: rgba(0, 229, 255, 0.35);
+        }
+
+        .text-gradient-bolivia {
+            background: linear-gradient(90deg, #FF3B30 0%, #FFCC00 50%, #34C759 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-pacman {
+            background: linear-gradient(90deg, #FFCC00 0%, #00E5FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-glow-red:hover { box-shadow: 0 0 25px rgba(255, 59, 48, 0.6); }
+        .btn-glow-yellow:hover { box-shadow: 0 0 25px rgba(255, 204, 0, 0.6); }
+        .btn-glow-cyan:hover { box-shadow: 0 0 25px rgba(0, 229, 255, 0.6); }
+
+        /* Contenedor de Juegos WebGL */
+        .game-viewport {
+            width: 100%;
+            height: 620px;
+            position: relative;
+            background: #090D16;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid #1F2D47;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Grid de fondo sutil */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
     </style>
 </head>
-<body class="antialiased bg-neon-dark text-slate-100">
+<body class="antialiased bg-grid selection:bg-arcade-yellow selection:text-black">
 
-    <!-- Top Neon Stripe -->
-    <div class="h-1 w-full bg-gradient-to-r from-neon-red via-neon-yellow to-neon-green fixed top-0 z-50"></div>
+    <!-- Barra Superior Tricolor -->
+    <div class="h-1 w-full bg-gradient-to-r from-arcade-red via-arcade-yellow to-arcade-green fixed top-0 z-50"></div>
 
-    <!-- Header / Banner de Identidad -->
-    <header class="fixed top-1 left-0 w-full z-40 bg-neon-dark/90 backdrop-blur-xl border-b border-neon-border/80">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center space-x-3">
-                <div class="w-10 h-7 rounded-lg p-0.5 bg-gradient-to-br from-neon-red via-neon-yellow to-neon-green flex flex-col justify-between">
-                    <div class="h-1/3 bg-neon-red"></div>
-                    <div class="h-1/3 bg-neon-yellow"></div>
-                    <div class="h-1/3 bg-neon-green"></div>
+    <!-- HEADER DE IDENTIDAD Y MENÚ DE SELECCIÓN -->
+    <header class="fixed top-1 left-0 w-full z-40 bg-arcade-dark/85 backdrop-blur-xl border-b border-arcade-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Identidad del Developer -->
+            <a href="#" class="flex items-center space-x-3.5 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-arcade-cyan to-blue-600 p-0.5 shadow-lg group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-arcade-dark rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-gamepad text-arcade-cyan text-lg"></i>
+                    </div>
                 </div>
                 <div>
-                    <span class="font-heading text-xl font-bold text-white">PORTAL DE JUEGOS</span>
-                    <span class="block text-[10px] text-gray-400">José Gabriel Arroyo Santos</span>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-heading text-lg sm:text-xl font-extrabold tracking-wide text-white">
+                            JOSÉ GABRIEL ARROYO SANTOS
+                        </span>
+                        <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-arcade-surface text-arcade-cyan border border-arcade-cyan/30 rounded-md">
+                            Dev
+                        </span>
+                    </div>
+                    <span class="block text-xs text-slate-400 font-medium">
+                        Portal Oficial de Videojuegos • Game Development
+                    </span>
                 </div>
             </a>
-            <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold">
-                <a href="#seccion-juego1" class="hover:text-neon-yellow transition-colors">Juego 1: RodrigoRun</a>
-                <a href="#seccion-juego2" class="hover:text-neon-yellow transition-colors">Juego 2: Pac-Man Laberinto</a>
+
+            <!-- Botones de Selección / Navegación Interna -->
+            <nav class="flex items-center space-x-3 sm:space-x-4">
+                <a href="#seccion-juego1" class="bg-arcade-surface hover:bg-arcade-red text-white border border-arcade-red/40 font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-all btn-glow-red flex items-center space-x-2">
+                    <i class="fa-solid fa-person-running text-arcade-yellow"></i>
+                    <span>Juego 1: RodrigoRun</span>
+                </a>
+                <a href="#seccion-juego2" class="bg-arcade-surface hover:bg-arcade-yellow hover:text-black text-white border border-arcade-yellow/40 font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-all btn-glow-yellow flex items-center space-x-2">
+                    <i class="fa-solid fa-ghost text-arcade-cyan"></i>
+                    <span>Juego 2: Pac-Man</span>
+                </a>
             </nav>
         </div>
     </header>
 
-    <main class="pt-28">
-        <!-- HERO -->
-        <section class="py-12 text-center space-y-4">
-            <h1 class="font-heading text-5xl font-black text-white">PORTAL MULTIJUEGO <span class="text-tricolor-neon">WEBGL</span></h1>
-            <p class="text-slate-400 text-sm max-w-xl mx-auto">Selecciona tu juego y presiona el botón START de cada sección cuando estés listo para comenzar[cite: 3].</p>
-        </section>
+    <main class="pt-24">
 
-        <!-- SECCIÓN JUEGO 1: RodrigoRun (Unity WebGL) -->
-        <section id="seccion-juego1" class="py-16 px-4 border-t border-neon-border/60 bg-neon-card/40">
-            <div class="max-w-5xl mx-auto space-y-6">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <h2 class="font-heading text-3xl font-extrabold text-white">RodrigoRun (Endless Runner 3D)</h2>
-                    <!-- Botón Start independiente -->
-                    <button onclick="cargarRodrigoRun()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-black px-8 py-3 rounded-xl shadow-lg transition-all">
-                        <i class="fa-solid fa-play"></i> START JUEGO 1
-                    </button>
-                </div>
-                <div class="cyber-card p-4 rounded-3xl border border-neon-yellow/40">
-                    <div id="unity-container-1" class="game-container-box rounded-2xl overflow-hidden text-center">
-                        <p class="text-slate-400 text-sm p-6">El juego está en espera. Presiona <strong>START JUEGO 1</strong> para cargar[cite: 3].</p>
+        <!-- HERO BANNER PRINCIPAL -->
+        <section class="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-arcade-border/60">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-arcade-surface border border-arcade-cyan/30 text-arcade-cyan text-xs font-bold uppercase tracking-widest">
+                        <span class="w-2 h-2 rounded-full bg-arcade-green animate-ping"></span>
+                        <span>Unity WebGL • Unidad 4: Interfaz de Usuarios</span>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- SECCIÓN JUEGO 2: Pac-Man Laberinto (Ejecutable de Escritorio) -->
-        <section id="seccion-juego2" class="py-16 px-4 border-t border-neon-border/60">
-            <div class="max-w-5xl mx-auto space-y-6">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <h2 class="font-heading text-3xl font-extrabold text-white">Laberinto Estilo Pac-Man</h2>
-                    <!-- Botón Start independiente -->
-                    <button onclick="iniciarPacManExe()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black px-8 py-3 rounded-xl shadow-lg transition-all">
-                        <i class="fa-solid fa-play"></i> START JUEGO 2
-                    </button>
-                </div>
-                <div class="cyber-card p-4 rounded-3xl border border-emerald-500/40">
-                    <div id="unity-container-2" class="game-container-box rounded-2xl overflow-hidden text-center flex flex-col items-center justify-center p-8 space-y-4">
-                        <i class="fa-solid fa-ghost text-6xl text-emerald-500 animate-pulse"></i>
-                        <h3 class="text-xl font-bold text-white">Juego 2: Laberinto (Versión Escritorio)</h3>
-                        <p class="text-slate-400 text-sm max-w-md">Este juego está compilado como ejecutable para Windows (`.exe`). Presiona el botón <strong>START JUEGO 2</strong> para descargar o acceder a sus archivos alojados en tu repositorio.</p>
-                        <a href="Downloads/RodrigoMaze/PacMan_Rodrigo/PacMan_Rodrigo.exe" download class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition-all shadow-md">
-                            <i class="fa-solid fa-download mr-2"></i> Descargar / Ejecutar PacMan_Rodrigo.exe
+                    <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-tight text-white">
+                        ARCADE WEB <br>
+                        <span class="text-gradient-bolivia">MULTI-JUEGO</span>
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Bienvenido al portal interactivo desarrollado por <strong class="text-white font-semibold">José Gabriel Arroyo Santos</strong>. Selecciona cualquiera de los títulos disponibles para desplazarte a su arena y presiona su botón <strong class="text-arcade-yellow">START</strong> cuando estés listo para jugar en esta misma página.
+                    </p>
+
+                    <!-- Tarjetas Rápidas de Selección -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 max-w-xl mx-auto lg:mx-0">
+                        <a href="#seccion-juego1" class="glass-panel p-4 rounded-2xl flex items-center space-x-4 group transition-all hover:-translate-y-1">
+                            <div class="w-12 h-12 rounded-xl bg-arcade-red/20 border border-arcade-red/40 flex items-center justify-center text-arcade-red text-xl group-hover:bg-arcade-red group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-fire"></i>
+                            </div>
+                            <div class="text-left">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-arcade-red block">Título 01 • Endless Runner</span>
+                                <span class="font-heading font-bold text-white text-lg">RodrigoRun 3D</span>
+                            </div>
+                        </a>
+
+                        <a href="#seccion-juego2" class="glass-panel p-4 rounded-2xl flex items-center space-x-4 group transition-all hover:-translate-y-1">
+                            <div class="w-12 h-12 rounded-xl bg-arcade-yellow/20 border border-arcade-yellow/40 flex items-center justify-center text-arcade-yellow text-xl group-hover:bg-arcade-yellow group-hover:text-black transition-colors">
+                                <i class="fa-solid fa-ghost"></i>
+                            </div>
+                            <div class="text-left">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-arcade-yellow block">Título 02 • Laberinto Arcade</span>
+                                <span class="font-heading font-bold text-white text-lg">Pac-Man Rodrigo</span>
+                            </div>
                         </a>
                     </div>
                 </div>
+
+                <!-- Showcase Visual con Portada -->
+                <div class="lg:col-span-5">
+                    <div class="glass-panel p-3 rounded-3xl border border-arcade-cyan/20 relative">
+                        <div class="rounded-2xl overflow-hidden relative aspect-video bg-arcade-dark">
+                            <img src="portada.jpg" alt="Vista previa RodrigoRun" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-arcade-dark via-transparent to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs font-bold text-arcade-yellow uppercase">Destacado</span>
+                                    <p class="font-heading font-bold text-white text-sm">2 Juegos Integrados • 0 Pestañas Externas</p>
+                                </div>
+                                <span class="px-3 py-1 rounded-lg bg-arcade-green/20 border border-arcade-green/40 text-arcade-green text-xs font-bold">
+                                    WebGL Listo
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <!-- ========================================================= -->
+        <!-- SECCIÓN JUEGO 1: RODRIGORUN                               -->
+        <!-- ========================================================= -->
+        <section id="seccion-juego1" class="py-20 px-4 sm:px-6 lg:px-8 border-b border-arcade-border/60">
+            <div class="max-w-6xl mx-auto space-y-8">
+                
+                <!-- Cabecera de Sección + Botón START encima del área de juego -->
+                <div class="glass-panel p-6 sm:p-8 rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-l-4 border-l-arcade-red">
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-3">
+                            <span class="px-3 py-1 rounded-full bg-arcade-red/20 text-arcade-red text-xs font-extrabold uppercase tracking-wider">
+                                Juego 01
+                            </span>
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-keyboard mr-1 text-arcade-yellow"></i> Controles: Flechas ↑ y ↓</span>
+                        </div>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-black text-white">
+                            RODRIGO<span class="text-gradient-bolivia">RUN</span>
+                        </h2>
+                        <p class="text-slate-400 text-sm max-w-2xl">
+                            Corre por las calles de La Paz esquivando bloqueos, llantas en llamas y petardos. Junta <strong class="text-white">500 votos</strong> antes de perder tus 30 vidas para ganar la campaña.
+                        </p>
+                    </div>
+
+                    <!-- BOTÓN START OBLIGATORIO -->
+                    <div class="w-full md:w-auto flex flex-col items-center">
+                        <button id="btn-start-1" onclick="iniciarJuego1()" class="w-full md:w-auto bg-gradient-to-r from-arcade-red to-rose-600 hover:from-rose-500 hover:to-arcade-red text-white font-heading font-extrabold text-lg px-10 py-4 rounded-2xl shadow-xl btn-glow-red transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-3 cursor-pointer">
+                            <i class="fa-solid fa-play"></i>
+                            <span>START JUEGO 1</span>
+                        </button>
+                        <span class="text-[11px] text-slate-500 mt-2">Presiona para cargar el motor WebGL</span>
+                    </div>
+                </div>
+
+                <!-- Contenedor del Juego 1 -->
+                <div class="glass-panel p-3 sm:p-4 rounded-3xl">
+                    <div id="contenedor-juego-1" class="game-viewport">
+                        <!-- Pantalla de Espera (No inicia automáticamente) -->
+                        <div class="text-center p-8 max-w-md space-y-4">
+                            <div class="w-20 h-20 mx-auto rounded-2xl bg-arcade-surface border border-arcade-red/30 flex items-center justify-center text-arcade-red text-3xl shadow-inner">
+                                <i class="fa-solid fa-power-off"></i>
+                            </div>
+                            <h3 class="font-heading text-xl font-bold text-white">RodrigoRun en espera</h3>
+                            <p class="text-slate-400 text-sm">
+                                El juego no se ejecuta automáticamente para ahorrar recursos. Haz clic en el botón <strong class="text-arcade-red">START JUEGO 1</strong> de arriba cuando desees comenzar[cite: 3].
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Barra inferior de controles -->
+                    <div id="footer-juego-1" class="hidden mt-3 px-4 py-2.5 bg-arcade-dark rounded-xl border border-arcade-border flex items-center justify-between text-xs text-slate-400">
+                        <span><i class="fa-solid fa-circle-info text-arcade-cyan mr-1.5"></i> Haz clic dentro de la pantalla del juego para activar el teclado.</span>
+                        <button id="fullscreen-btn-1" class="text-arcade-yellow hover:underline font-bold flex items-center space-x-1.5 cursor-pointer">
+                            <i class="fa-solid fa-expand"></i>
+                            <span>Pantalla Completa</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Galería breve de detalles del Juego 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="glass-panel p-4 rounded-2xl flex items-center space-x-4">
+                        <img src="rodrigo_render.jpg" alt="El Presi" class="w-16 h-16 rounded-xl object-cover border border-arcade-yellow/30">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Protagonista: El Presi</h4>
+                            <p class="text-xs text-slate-400">Modelo 3D low-poly con banda tricolor y animaciones de salto y deslice.</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-4 rounded-2xl flex items-center space-x-4">
+                        <img src="ciudad.jpg" alt="La Paz" class="w-16 h-16 rounded-xl object-cover border border-arcade-cyan/30">
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Escenario: La Paz</h4>
+                            <p class="text-xs text-slate-400">Calles infinitas con teleférico, minibuses y plazas generadas por pooling.</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-4 rounded-2xl flex items-center justify-center text-center">
+                        <div>
+                            <span class="font-heading text-2xl font-black text-arcade-green">500 VOTOS</span>
+                            <p class="text-xs text-slate-400 mt-0.5">Meta para ganar la partida • 30 Vidas iniciales</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- SECCIÓN JUEGO 2: LABERINTO ESTILO PAC-MAN                 -->
+        <!-- ========================================================= -->
+        <section id="seccion-juego2" class="py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto space-y-8">
+                
+                <!-- Cabecera de Sección + Botón START encima del área de juego -->
+                <div class="glass-panel p-6 sm:p-8 rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border-l-4 border-l-arcade-yellow">
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-3">
+                            <span class="px-3 py-1 rounded-full bg-arcade-yellow/20 text-arcade-yellow text-xs font-extrabold uppercase tracking-wider">
+                                Juego 02
+                            </span>
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-arrows-up-down-left-right mr-1 text-arcade-cyan"></i> Controles: Flechas / WASD</span>
+                        </div>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-black text-white">
+                            LABERINTO <span class="text-gradient-pacman">PAC-MAN</span>
+                        </h2>
+                        <p class="text-slate-400 text-sm max-w-2xl">
+                            Recorre el laberinto clásico recolectando todos los puntos mientras evitas a los fantasmas. Utiliza los potenciadores estratégicamente para limpiar el tablero.
+                        </p>
+                    </div>
+
+                    <!-- BOTÓN START OBLIGATORIO -->
+                    <div class="w-full md:w-auto flex flex-col items-center">
+                        <button id="btn-start-2" onclick="iniciarJuego2()" class="w-full md:w-auto bg-gradient-to-r from-arcade-yellow to-amber-500 hover:from-amber-400 hover:to-arcade-yellow text-black font-heading font-extrabold text-lg px-10 py-4 rounded-2xl shadow-xl btn-glow-yellow transition-all transform hover:-translate-y-0.5 flex items-center justify-center space-x-3 cursor-pointer">
+                            <i class="fa-solid fa-play"></i>
+                            <span>START JUEGO 2</span>
+                        </button>
+                        <span class="text-[11px] text-slate-500 mt-2">Presiona para iniciar el laberinto en esta página</span>
+                    </div>
+                </div>
+
+                <!-- Contenedor del Juego 2 -->
+                <div class="glass-panel p-3 sm:p-4 rounded-3xl">
+                    <div id="contenedor-juego-2" class="game-viewport">
+                        <!-- Pantalla de Espera (No inicia automáticamente) -->
+                        <div class="text-center p-8 max-w-md space-y-4">
+                            <div class="w-20 h-20 mx-auto rounded-2xl bg-arcade-surface border border-arcade-yellow/30 flex items-center justify-center text-arcade-yellow text-3xl shadow-inner">
+                                <i class="fa-solid fa-ghost"></i>
+                            </div>
+                            <h3 class="font-heading text-xl font-bold text-white">Laberinto Pac-Man en espera</h3>
+                            <p class="text-slate-400 text-sm">
+                                El juego permanece detenido hasta que tú decidas comenzar. Presiona el botón <strong class="text-arcade-yellow">START JUEGO 2</strong> ubicado arriba para jugar aquí mismo[cite: 3].
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Barra inferior de controles -->
+                    <div id="footer-juego-2" class="hidden mt-3 px-4 py-2.5 bg-arcade-dark rounded-xl border border-arcade-border flex items-center justify-between text-xs text-slate-400">
+                        <span><i class="fa-solid fa-circle-info text-arcade-cyan mr-1.5"></i> Haz clic dentro del laberinto si el teclado no responde de inmediato.</span>
+                        <button onclick="pantallaCompletaJuego2()" class="text-arcade-yellow hover:underline font-bold flex items-center space-x-1.5 cursor-pointer">
+                            <i class="fa-solid fa-expand"></i>
+                            <span>Pantalla Completa</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
     </main>
 
-    <footer class="bg-neon-dark border-t border-neon-border py-8 text-center text-xs text-slate-500">
-        <p>Desarrollado por José Gabriel Arroyo Santos • Game Development © 2026</p>
+    <!-- FOOTER -->
+    <footer class="bg-arcade-dark border-t border-arcade-border py-10 px-4 text-center space-y-3">
+        <div class="flex items-center justify-center space-x-2 text-white font-heading font-bold">
+            <i class="fa-solid fa-code text-arcade-cyan"></i>
+            <span>José Gabriel Arroyo Santos</span>
+        </div>
+        <p class="text-xs text-slate-500">
+            Asignatura: Game Development • Unidad 4: Actualización de Portal WebGL • Todos los juegos se ejecutan de forma integrada.
+        </p>
+        <div class="pt-2">
+            <a href="#" class="text-xs text-arcade-cyan hover:underline">Volver al inicio ↑</a>
+        </div>
     </footer>
 
+    <!-- SCRIPTS DE CONTROL DE INICIO EXPLÍCITO -->
     <script>
-        // Carga diferida de Juego 1 (RodrigoRun WebGL)
-        function cargarRodrigoRun() {
-            const container = document.getElementById('unity-container-1');
-            if (container.querySelector('canvas')) return;
-            container.innerHTML = `
-                <canvas id="unity-canvas-1" style="width:100%; height:100%; background:#231F20;" tabindex="-1"></canvas>
-                <div id="unity-loading-1" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:#080B10;">
-                    <div style="width:200px; height:8px; background:#161D27; border-radius:4px; overflow:hidden;"><div id="bar-1" style="width:0%; height:100%; background:#34C759; transition:width 0.1s;"></div></div>
+        // ==========================================
+        // 1. CONTROL DE INICIO: JUEGO 1 (RODRIGORUN)
+        // ==========================================
+        function iniciarJuego1() {
+            const contenedor = document.getElementById('contenedor-juego-1');
+            const btnStart = document.getElementById('btn-start-1');
+            
+            // Evitar doble carga si ya se presionó Start
+            if (contenedor.querySelector('canvas')) return;
+
+            // Actualizar estado visual del botón
+            btnStart.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>CARGANDO...</span>';
+            btnStart.classList.add('opacity-80', 'cursor-default');
+
+            // Inyectar Canvas y barra de progreso
+            contenedor.innerHTML = `
+                <canvas id="unity-canvas-1" style="width: 100%; height: 100%; background: #231F20;" tabindex="-1"></canvas>
+                <div id="loading-overlay-1" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #090D16; z-index: 10;">
+                    <p class="text-white font-heading font-bold mb-3 text-sm tracking-wider">CARGANDO RODRIGORUN...</p>
+                    <div style="width: 280px; height: 10px; background: #141D2E; border-radius: 99px; overflow: hidden; border: 1px solid #1F2D47;">
+                        <div id="progress-bar-1" style="width: 0%; height: 100%; background: linear-gradient(90deg, #FF3B30, #FFCC00, #34C759); transition: width 0.15s;"></div>
+                    </div>
                 </div>
             `;
-            let canvas1 = document.querySelector("#unity-canvas-1");
-            var config1 = { dataUrl: "Build/web_game.data", frameworkUrl: "Build/web_game.framework.js", codeUrl: "Build/web_game.wasm", streamingAssetsUrl: "StreamingAssets", companyName: "DefaultCompany", productName: "RodrigoRun", productVersion: "0.1.0" };
-            var script1 = document.createElement("script");
+
+            document.getElementById('footer-juego-1').classList.remove('hidden');
+
+            const canvas1 = document.querySelector("#unity-canvas-1");
+            const config1 = {
+                dataUrl: "Build/web_game.data",
+                frameworkUrl: "Build/web_game.framework.js",
+                codeUrl: "Build/web_game.wasm",
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "DefaultCompany",
+                productName: "RodrigoRun",
+                productVersion: "0.1.0",
+            };
+
+            const script1 = document.createElement("script");
             script1.src = "Build/web_game.loader.js";
             script1.onload = () => {
                 createUnityInstance(canvas1, config1, (progress) => {
-                    document.getElementById('bar-1').style.width = (progress * 100) + "%";
-                    if (progress >= 1) document.getElementById('unity-loading-1').style.display = 'none';
+                    document.getElementById('progress-bar-1').style.width = (progress * 100) + "%";
+                    if (progress >= 1) {
+                        document.getElementById('loading-overlay-1').style.display = 'none';
+                        btnStart.innerHTML = '<i class="fa-solid fa-check"></i> <span>EN EJECUCIÓN</span>';
+                    }
+                }).then((unityInstance) => {
+                    document.getElementById("fullscreen-btn-1").onclick = () => {
+                        unityInstance.SetFullscreen(1);
+                    };
+                }).catch((err) => {
+                    alert("Error al cargar RodrigoRun: " + err);
                 });
             };
             document.body.appendChild(script1);
         }
 
-        // Activación explícita para Juego 2 (Escritorio)
-        function iniciarPacManExe() {
-            alert("Has activado el Juego 2. Utiliza el botón de descarga inferior en la sección para ejecutar tu versión de escritorio.");
-            const sec = document.getElementById('seccion-juego2');
-            sec.scrollIntoView({ behavior: 'smooth' });
+        // ==========================================
+        // 2. CONTROL DE INICIO: JUEGO 2 (PAC-MAN)
+        // ==========================================
+        function iniciarJuego2() {
+            const contenedor = document.getElementById('contenedor-juego-2');
+            const btnStart = document.getElementById('btn-start-2');
+
+            // Evitar doble carga si ya se presionó Start
+            if (contenedor.querySelector('iframe')) return;
+
+            btnStart.innerHTML = '<i class="fa-solid fa-check"></i> <span>EN EJECUCIÓN</span>';
+            btnStart.classList.add('opacity-80', 'cursor-default');
+
+            // Incrustar PacMan_Web/pacman.html dentro de la misma página sin abrir pestañas
+            contenedor.innerHTML = `
+                <iframe 
+                    id="iframe-pacman" 
+                    src="PacMan_Web/pacman.html" 
+                    style="width: 100%; height: 100%; border: none;" 
+                    allowfullscreen>
+                </iframe>
+            `;
+
+            document.getElementById('footer-juego-2').classList.remove('hidden');
+        }
+
+        function pantallaCompletaJuego2() {
+            const iframe = document.getElementById('iframe-pacman');
+            if (iframe && iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            }
         }
     </script>
 </body>
 </html>
-```[cite: 3]
